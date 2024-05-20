@@ -1,118 +1,43 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
+import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {fonts} from './src/constants/fonts';
+import {globalStyles} from './src/styles/globalStyles';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+type Props = {};
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = (props: Props) => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <ScrollView>
+      <Text style={{fontFamily: 'Poppins-Bold', fontSize: 32}}>Hello</Text>
+      <Text style={[globalStyles.text, {fontFamily: fonts.Bold}]}>World</Text>
+      {/*  */}
+      <Text style={{fontFamily: fonts.Bold, fontSize: 32}}>Header 1</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 30}}>Header 2</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 28}}>Header 3</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 26}}>Header 4</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 24}}>Header 5</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 22}}>Header 6</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 20}}>Header 7</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 20}}>Body 1</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 18}}>Body 2</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 16}}>Caption</Text>
+      <Text style={{fontFamily: fonts.Bold, fontSize: 14}}>Label</Text>
+      {/*  */}
+      <Text style={{fontFamily: fonts.Regular, fontSize: 32}}>Header 1</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 30}}>Header 2</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 28}}>Header 3</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 26}}>Header 4</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 24}}>Header 5</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 22}}>Header 6</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 20}}>Header 7</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 20}}>Body 1</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 18}}>Body 2</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 16}}>Caption</Text>
+      <Text style={{fontFamily: fonts.Regular, fontSize: 14}}>Label</Text>
+    </ScrollView>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
