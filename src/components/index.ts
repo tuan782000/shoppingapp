@@ -1,8 +1,25 @@
-import Avatar from "./Avatar";
-import ButtonComponent from "./ButtonComponent";
-import Card from "./Card";
-import Tabbar from "./Tabbar";
-import TextComponent from "./TextComponent";
-import Input from "./Input";
+import Avatar from './Avatar';
+import ButtonComponent from './ButtonComponent';
+import Card from './Card';
+import Tabbar from './Tabbar';
+import TextComponent from './TextComponent';
+import Input from './Input';
+import Container from './Container';
+import Row from './Row';
+import Section from './Section';
+import Space from './Space';
+import Tag from './Tag';
 
-export {Input, Avatar, Tabbar, Card, ButtonComponent, TextComponent}
+export {
+  Input,
+  Avatar,
+  Tabbar,
+  Card,
+  ButtonComponent,
+  TextComponent,
+  Container,
+  Row,
+  Section,
+  Space,
+  Tag,
+};

@@ -1,18 +1,31 @@
-import { View, Text } from 'react-native'
-import React, { ReactNode } from 'react'
+import {View, Text} from 'react-native';
+import React, {ReactNode} from 'react';
+import TextComponent from './TextComponent';
+import Row from './Row';
+import ButtonComponent from './ButtonComponent';
+import {fonts} from '../constants/fonts';
 
 type Props = {
-    icon: ReactNode,
-    prefix: ReactNode,
-}
+  title: string;
+  viewAll?: boolean;
+  onViewAll?: () => void;
+};
 
 const Tabbar = (props: Props) => {
-    const {icon, prefix} = props;
+  const {title, viewAll, onViewAll} = props;
   return (
-    <View>
-      <Text>Tabbar</Text>
-    </View>
-  )
-}
+    <Row>
+      <TextComponent size={18} font={fonts.Bold} flex={1} text={title} />
+      {viewAll && onViewAll && (
+        <ButtonComponent
+          inline
+          value="View all"
+          onPress={onViewAll}
+          type="link"
+        />
+      )}
+    </Row>
+  );
+};
 
-export default Tabbar
+export default Tabbar;

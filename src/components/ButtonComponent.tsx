@@ -5,52 +5,83 @@ import {
   ViewProps,
   TextStyle,
   TouchableOpacity,
+  ViewStyle,
 } from 'react-native';
 import React, {ReactNode} from 'react';
 import TextComponent from './TextComponent';
+import {colors} from '../constants/colors';
+import {globalStyles} from '../styles/globalStyles';
 
 type Props = {
   onPress: () => void;
   value?: string;
-  prefix?: ReactNode;
-  subfix?: ReactNode;
-  styles?: StyleProp<ViewProps>;
-  buttonStyles?: StyleProp<TextStyle>;
+  buttonStyles?: StyleProp<ViewStyle>;
   backgroundColor?: string;
   color?: string;
   borderRadius?: number;
+  icon?: ReactNode;
+  iconPosition?: 'left' | 'right';
+  type?: 'primary' | 'outline' | 'text' | 'link';
+  textStyleProps?: StyleProp<TextStyle>;
+  inline?: boolean;
 };
 
 const ButtonComponent = (props: Props) => {
   const {
     value,
     onPress,
-    prefix,
-    subfix,
-    styles,
     buttonStyles,
     backgroundColor,
     color,
     borderRadius,
+    icon,
+    iconPosition,
+    type,
+    textStyleProps,
+    inline,
   } = props;
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
-        buttonStyles,
+        globalStyles.button,
         {
-          flexDirection: 'row',
-          paddingVertical: 12,
-          paddingHorizontal: 10,
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: 20,
+          marginBottom: inline ? 0 : 20,
           backgroundColor: backgroundColor,
           borderRadius: borderRadius ?? 999,
+          borderWidth: type === 'outline' ? 1 : 0,
+          borderColor: backgroundColor ?? colors.gray.g500,
         },
+        buttonStyles,
       ]}>
-      {prefix && prefix}
-      <Text style={{color: color}}>{value}</Text>
+      {icon && (iconPosition === 'left' || !iconPosition) && icon}
+      {value && (
+        <TextComponent
+          color={
+            color
+              ? color
+              : type === 'link'
+              ? colors.primary.p500
+              : backgroundColor
+              ? backgroundColor !== 'white'
+                ? colors.white.w500
+                : colors.dark.d500
+              : colors.dark.d500
+          }
+          text={value}
+          styles={[
+            {
+              paddingRight: icon && iconPosition === 'right' ? 12 : 0,
+              paddingLeft: icon && iconPosition === 'left' ? 12 : 0,
+            },
+            textStyleProps,
+          ]}
+        />
+      )}
+      {icon && iconPosition === 'right' && icon}
+
+      {/* {prefix && prefix} */}
+      {/* <Text style={{color: color}}>{value}</Text> */}
     </TouchableOpacity>
   );
 };

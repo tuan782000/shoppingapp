@@ -78,17 +78,17 @@ const Input = (props: Props) => {
       {subfix && subfix}
       {value && allowClear && (
         <TouchableOpacity onPress={() => onChange('')}>
-          <CloseCircle />
+          <CloseCircle size={20} color={colors.gray.g500_80} />
         </TouchableOpacity>
       )}
       {password ? (
         isShowPassword ? (
           <TouchableOpacity onPress={() => setIsShowPassword(!isShowPassword)}>
-            <Eye />
+            <Eye size={20} color={colors.gray.g500_80} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={() => setIsShowPassword(!isShowPassword)}>
-            <EyeSlash />
+            <EyeSlash size={20} color={colors.gray.g500_80} />
           </TouchableOpacity>
         )
       ) : null}
