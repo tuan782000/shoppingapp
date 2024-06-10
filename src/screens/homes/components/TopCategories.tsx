@@ -62,7 +62,7 @@ const TopCategories = () => {
   */
 
   return (
-    <>
+    <View>
       {/* <Tabbar title="Top categories" viewAll onViewAll={() => {}} /> */}
       <View style={{paddingHorizontal: 16}}>
         <Tabbar title="Top categories" />
@@ -109,7 +109,7 @@ const TopCategories = () => {
           )}
         />
       )}
-    </>
+    </View>
   );
 };
 

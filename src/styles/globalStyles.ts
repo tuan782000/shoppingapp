@@ -50,4 +50,19 @@ export const globalStyles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 100,
   },
+  card: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 12,
+  },
+  shadow: {
+    shadowColor: 'rgba(0,0,0,0.35)',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 8,
+  },
 });

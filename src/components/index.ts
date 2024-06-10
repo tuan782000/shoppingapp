@@ -9,6 +9,8 @@ import Row from './Row';
 import Section from './Section';
 import Space from './Space';
 import Tag from './Tag';
+import CardComponent from './CardComponent';
+import ProductItem from './ProductItem';
 
 export {
   Input,
@@ -22,4 +24,6 @@ export {
   Section,
   Space,
   Tag,
+  CardComponent,
+  ProductItem,
 };

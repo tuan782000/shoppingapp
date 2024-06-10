@@ -17,19 +17,25 @@ type Props = {
   title?: string;
   titlePosition?: 'left' | 'center' | 'right';
   right?: ReactNode;
+  left?: ReactNode;
 };
 
 const Container = (props: Props) => {
-  const {children, isScroll, back, title, titlePosition, right} = props;
+  const {children, isScroll, back, title, titlePosition, right, left} = props;
   return (
     <SafeAreaView style={[globalStyles.container]}>
-      {title || back || right ? (
+      {title || back || right || left ? (
         <Row
           styles={{
-            paddingVertical: 12,
+            paddingHorizontal: 16,
             paddingTop:
-              Platform.OS === 'android' ? StatusBar.currentHeight : 20,
+              Platform.OS === 'android'
+                ? StatusBar.currentHeight
+                  ? StatusBar.currentHeight + 16
+                  : 20
+                : 20,
           }}>
+          {left && left}
           {back ? (
             <ButtonComponent
               // android quy định nút nên có chiều cao 48

@@ -54,6 +54,7 @@ const Row = (props: Props) => {
           flexWrap: wrap,
           alignItems: alignItems ?? 'center',
         },
+        styles,
       ]}>
       {children}
     </View>

@@ -7,9 +7,11 @@ import {
   ImageSourcePropType,
   TouchableOpacity,
   TextStyle,
+  ImageResizeMode,
 } from 'react-native';
 import React from 'react';
 import {ViewProps} from 'react-native-svg/lib/typescript/fabric/utils';
+import TextComponent from './TextComponent';
 
 type Props = {
   source: string;
@@ -18,10 +20,21 @@ type Props = {
   padding?: number;
   backgroundColor?: string;
   imgStyles?: StyleProp<TextStyle>;
+  resizeMode?: ImageResizeMode;
+  text?: string;
 };
 
 const Avatar = (props: Props) => {
-  const {source, size, onPress, padding, backgroundColor, imgStyles} = props;
+  const {
+    source,
+    size,
+    onPress,
+    padding,
+    backgroundColor,
+    imgStyles,
+    resizeMode,
+    text,
+  } = props;
   return (
     <TouchableOpacity
       style={[
@@ -38,7 +51,7 @@ const Avatar = (props: Props) => {
         width={size ?? 24}
         height={size ?? 24}
         borderRadius={size ? size / 2 : 12}
-        resizeMode="cover"
+        resizeMode={resizeMode ?? 'cover'}
       />
     </TouchableOpacity>
   );

@@ -18,7 +18,8 @@ type Props = {
   subfix?: ReactNode;
   placeholder?: string;
   onChange: (val: string) => void;
-  styles?: StyleProp<ViewProps>;
+  // styles?: StyleProp<ViewProps>;
+  styles?: StyleProp<TextStyle>;
   inputStyles?: StyleProp<TextStyle>;
   password?: boolean;
   allowClear?: boolean;

@@ -1,6 +1,6 @@
 import {View, Text, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Avatar, Section, Tabbar} from '../../../components';
+import {Avatar, Section, Tabbar, Row, TextComponent} from '../../../components';
 import {colors} from '../../../constants/colors';
 
 const TopBrands = () => {
@@ -44,7 +44,7 @@ const TopBrands = () => {
     }
   };
   return (
-    <Section>
+    <View>
       <View style={{paddingHorizontal: 16}}>
         <Tabbar title={'Top Brands'} />
       </View>
@@ -59,13 +59,15 @@ const TopBrands = () => {
             source={`${item.brandImg}`}
             size={50}
             onPress={() => console.log(item.id)}
-            padding={10}
+            padding={8}
             backgroundColor={colors.dark.d500_10}
             imgStyles={{marginRight: index < brands.length - 1 ? 16 : 0}}
+            resizeMode="contain"
+            text={item.title}
           />
         )}
       />
-    </Section>
+    </View>
   );
 };
 

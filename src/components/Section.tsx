@@ -11,7 +11,12 @@ type Props = {
 const Section = (props: Props) => {
   const {children, styles, flex} = props;
   return (
-    <View style={[globalStyles.container, {flex: flex ?? 0}, styles]}>
+    <View
+      style={[
+        globalStyles.container,
+        {flex: flex ?? 0, paddingHorizontal: 16},
+        styles,
+      ]}>
       {children}
     </View>
   );

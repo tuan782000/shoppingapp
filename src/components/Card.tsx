@@ -1,3 +1,10 @@
+/*
+  Code "lởm". Tính tái sử dụng không cao. các thành phần bên trong khá cứng nhắt
+  Chúng ta nên viết ra 1 Card khác đặt tên CardComponent công dụng như này, các Image text nên là children không để trực tiếp
+
+  Phiên bản cải tiến hơn là CardComponent
+*/
+
 import {
   View,
   Text,

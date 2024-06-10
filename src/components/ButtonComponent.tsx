@@ -40,20 +40,24 @@ const ButtonComponent = (props: Props) => {
     textStyleProps,
     inline,
   } = props;
+
+  const localStyles =
+    type === 'link' || type === 'text'
+      ? [buttonStyles]
+      : [
+          globalStyles.button,
+          {
+            marginBottom: inline ? 0 : 20,
+            backgroundColor: backgroundColor,
+            borderRadius: borderRadius ?? 999,
+            borderWidth: type === 'outline' ? 1 : 0,
+            borderColor: backgroundColor ?? colors.gray.g500,
+          },
+          buttonStyles,
+        ];
+
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[
-        globalStyles.button,
-        {
-          marginBottom: inline ? 0 : 20,
-          backgroundColor: backgroundColor,
-          borderRadius: borderRadius ?? 999,
-          borderWidth: type === 'outline' ? 1 : 0,
-          borderColor: backgroundColor ?? colors.gray.g500,
-        },
-        buttonStyles,
-      ]}>
+    <TouchableOpacity onPress={onPress} style={localStyles}>
       {icon && (iconPosition === 'left' || !iconPosition) && icon}
       {value && (
         <TextComponent

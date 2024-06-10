@@ -1,6 +1,6 @@
 import {View, Text, FlatList, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Tabbar, Section, Card} from '../../../components';
+import {Tabbar, Section, Card, ProductItem, Row} from '../../../components';
 import {colors} from '../../../constants/colors';
 import {Heart} from 'iconsax-react-native';
 
@@ -49,12 +49,12 @@ const PopularProducts = () => {
     ]);
   };
   return (
-    <Section>
+    <View>
       <View style={{paddingHorizontal: 16}}>
         <Tabbar title="Popular Products" viewAll onViewAll={() => {}} />
       </View>
 
-      <FlatList
+      {/* <FlatList
         style={{marginLeft: 10}}
         data={products}
         numColumns={2}
@@ -75,7 +75,7 @@ const PopularProducts = () => {
             icon={<Heart color={colors.dark.d500_20} />}
           />
         )}
-      />
+      /> */}
 
       {/* <Card
         source={
@@ -91,7 +91,24 @@ const PopularProducts = () => {
         }}
         icon={<Heart color={colors.dark.d500_20} />}
       /> */}
-    </Section>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          width: Dimensions.get('window').width,
+          justifyContent: 'space-between',
+          paddingHorizontal: 8,
+        }}>
+        {products.map(item => (
+          <ProductItem item={item} key={item.id} />
+        ))}
+      </View>
+
+      {/* {products.map(item => (
+        <ProductItem type="horizontal" item={item} key={item.id} />
+      ))} */}
+    </View>
   );
 };
 
