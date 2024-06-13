@@ -12,35 +12,33 @@ import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
 import {SIZES} from '../../constants/theme';
 import {Message, Sms} from 'iconsax-react-native';
+import {globalStyles} from '../../styles/globalStyles';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({navigation}: any) => {
   const [otp, setOtp] = useState('');
   const [sms, setSms] = useState('');
   return (
-    <Container back>
+    <Container back navigation={navigation}>
       <Section>
         <Space height={20} />
-        <TextComponent
-          text="Forgot password"
-          textAlign="center"
-          size={25}
-          font={fonts.Bold}
-        />
-        <Space height={10} />
+        <View style={[globalStyles.center]}>
+          <TextComponent text="Forgot password" size={25} font={fonts.Bold} />
+          <Space height={10} />
+          <TextComponent
+            text="Select Which contact details should we use to reset your password"
+            size={16}
+            color={colors.gray.g500_80}
+            numberOfLines={2}
+            textAlign="center"
+          />
+          <Space height={20} />
+          <Image
+            source={require('../../assets/images/ForgotPassword.png')}
+            style={{width: SIZES.width, height: 340}}
+            resizeMode="contain"
+          />
+        </View>
 
-        <TextComponent
-          text="Select Which contact details should we use to reset your password"
-          size={16}
-          color={colors.gray.g500_80}
-          numberOfLines={2}
-          textAlign="center"
-        />
-        <Space height={20} />
-        <Image
-          source={require('../../assets/images/ForgotPassword.png')}
-          style={{width: SIZES.width, height: 340}}
-          resizeMode="contain"
-        />
         <Input
           onChange={val => setOtp(val)}
           value={otp}
@@ -85,7 +83,7 @@ const ForgotPassword = () => {
         />
 
         <ButtonComponent
-          onPress={() => console.log('continue')}
+          onPress={() => navigation.navigate('VerificationCode')}
           type="primary"
           value="Continue"
           backgroundColor={colors.primary.p500}

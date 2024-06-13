@@ -44,7 +44,7 @@ const Routers = () => {
     <SplashScreen />
   ) : (
     <NavigationContainer>
-      {1 < 2 ? <AuthNavigator /> : <MainNavigator />}
+      {1 > 2 ? <AuthNavigator /> : <MainNavigator />}
     </NavigationContainer>
   );
 };

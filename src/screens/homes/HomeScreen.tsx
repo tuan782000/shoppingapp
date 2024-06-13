@@ -17,7 +17,7 @@ import TopCategories from './components/TopCategories';
 import TopBrands from './components/TopBrands';
 import PopularProducts from './components/PopularProducts';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}: any) => {
   return (
     <Container
       // isScroll={false}
@@ -52,11 +52,26 @@ const HomeScreen = () => {
         <Space height={16} />
         <Row>
           <View style={{flex: 1}}>
-            <Input
+            {/* <Input
               placeholder="Search..."
               prefix={<SearchNormal1 size={20} color={colors.gray.g500_80} />}
               value=""
               onChange={val => console.log(val)}
+            /> */}
+            <ButtonComponent
+              onPress={() => navigation.navigate('Search')}
+              type="primary"
+              value="Search..."
+              backgroundColor={colors.dark.d500_5}
+              borderRadius={10}
+              // textStyleProps={{color: colors.gray.g500_80}}
+              icon={<SearchNormal1 size={20} color={colors.gray.g500_80} />}
+              iconPosition="left"
+              color={colors.gray.g500_80}
+              buttonStyles={{
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+              }}
             />
           </View>
           <Space width={12} />
@@ -75,7 +90,7 @@ const HomeScreen = () => {
       <Space height={16} />
       <TopBrands />
       <Space height={16} />
-      <PopularProducts />
+      <PopularProducts navigation={navigation} />
     </Container>
   );
 };

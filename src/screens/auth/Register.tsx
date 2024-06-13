@@ -12,8 +12,9 @@ import {
 import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
 import {Lock1, Sms, User} from 'iconsax-react-native';
+import {globalStyles} from '../../styles/globalStyles';
 
-const Register = () => {
+const Register = ({navigation}: any) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +31,7 @@ const Register = () => {
     <Container>
       <Section>
         <Space height={20} />
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View style={[globalStyles.center]}>
           <Image
             source={require('../../assets/images/icon-logo.png')}
             style={{
@@ -148,7 +149,7 @@ const Register = () => {
           <TextComponent text="Already have an account?" />
           <Space width={4} />
           <ButtonComponent
-            onPress={() => console.log('Login')}
+            onPress={() => navigation.navigate('Login')}
             type="link"
             value="Login"
           />

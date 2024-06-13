@@ -26,6 +26,7 @@ type Props = {
   inline?: boolean;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
   keyboardType?: KeyboardTypeOptions;
+  max?: number;
 };
 
 const Input = (props: Props) => {
@@ -42,6 +43,7 @@ const Input = (props: Props) => {
     inline,
     autoCapitalize,
     keyboardType,
+    max,
   } = props;
   const [isShowPassword, setIsShowPassword] = useState(password ? true : false);
   return (
@@ -74,6 +76,7 @@ const Input = (props: Props) => {
           placeholder={placeholder ?? ''}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
+          maxLength={max}
         />
       </View>
       {subfix && subfix}

@@ -9,10 +9,12 @@ type Props = {
   title: string;
   viewAll?: boolean;
   onViewAll?: () => void;
+  clear?: boolean;
+  onClear?: () => void;
 };
 
 const Tabbar = (props: Props) => {
-  const {title, viewAll, onViewAll} = props;
+  const {title, viewAll, onViewAll, clear, onClear} = props;
   return (
     <Row>
       <TextComponent size={18} font={fonts.Bold} flex={1} text={title} />
@@ -23,6 +25,10 @@ const Tabbar = (props: Props) => {
           onPress={onViewAll}
           type="link"
         />
+      )}
+
+      {clear && onClear && (
+        <ButtonComponent inline value="Clear" onPress={onClear} type="link" />
       )}
     </Row>
   );

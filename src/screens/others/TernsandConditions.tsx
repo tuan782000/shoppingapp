@@ -5,7 +5,7 @@ import {colors} from '../../constants/colors';
 
 const TernsandConditions = () => {
   return (
-    <Container back title="Terms & Conditions">
+    <Container back title="Terms & Conditions" titlePosition="center">
       <Section>
         <Space height={20} />
         <TextComponent

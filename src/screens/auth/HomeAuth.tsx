@@ -1,5 +1,12 @@
-import {View, Text, Image} from 'react-native';
-import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  Platform,
+  StatusBar,
+} from 'react-native';
+import React, {useRef, useState} from 'react';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {SIZES} from '../../constants/theme';
 import {
@@ -11,161 +18,208 @@ import {
 } from '../../components';
 import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
-import {ArrowCircleLeft2, ArrowCircleRight2} from 'iconsax-react-native';
+import {
+  ArrowCircleLeft2,
+  ArrowCircleRight2,
+  ArrowRight,
+} from 'iconsax-react-native';
+import {globalStyles} from '../../styles/globalStyles';
 
-const slides = [
+interface SlideItem {
+  id: number;
+  title: string;
+  keyWord: string;
+  description: string;
+  image: any;
+}
+
+const slides: SlideItem[] = [
   {
     id: 1,
-    title: 'Find the best fashion style for you',
+    title: 'Find the best keyWord for you',
+    keyWord: 'fashion style',
     description:
       'Get exclusive limited apperal that only you have! Made by famous brand ',
     image: require('../../assets/images/shopping-slide-01.png'),
   },
   {
     id: 2,
-    title: 'Define yourself in your unique way',
+    title: 'Define yourself in your keyWord',
+    keyWord: 'unique way',
     description:
       'Get exclusive limited apperal that only you have! Made by famous brand ',
     image: require('../../assets/images/shopping-slide-02.png'),
   },
   {
     id: 3,
-    title: 'Start discover your unique fashion style',
+    title: 'Start discover your keyWord style',
+    keyWord: 'unique fashion',
     description:
       'Get exclusive limited apperal that only you have! Made by famous brand ',
     image: require('../../assets/images/shopping-slide-03.png'),
   },
 ];
-const HomeAuth = () => {
-  const [showHomeAuth, setShowHomeAuth] = useState(false);
+const HomeAuth = ({navigation}: any) => {
+  const [index, setIndex] = useState(0);
+  const swiperRef = useRef<AppIntroSlider>(null);
 
-  const buttonNextLabel = () => {
-    return (
-      <View
-        style={{
-          width: SIZES.width - 32,
-          height: 50,
-          backgroundColor: colors.primary.p500,
-          borderRadius: 999,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <TextComponent text="Next" size={18} color={colors.white.w500} />
-      </View>
-    );
-  };
+  return (
+    <AppIntroSlider
+      ref={swiperRef}
+      initialScrollIndex={index}
+      onSlideChange={int => setIndex(int)}
+      data={slides}
+      renderItem={({item}: {item: SlideItem}) => {
+        return (
+          <ImageBackground
+            source={item.image}
+            style={{
+              flex: 1,
+              padding: 20,
+              paddingTop:
+                Platform.OS === 'android'
+                  ? StatusBar.currentHeight
+                    ? StatusBar.currentHeight + 20
+                    : 60
+                  : 60,
+            }}
+            imageStyle={{flex: 1, resizeMode: 'cover'}}>
+            <Row justifyContent="flex-end">
+              {index < slides.length - 1 && (
+                <Row
+                  onPress={() => {
+                    setIndex(index + 1);
+                    swiperRef.current?.goToSlide(index + 1);
+                    // swiperRef.current?.goToSlide(index + (slides.length - 1));
+                  }}>
+                  <TextComponent text="Skip" color={colors.primary.p500} />
+                  <Space width={8} />
+                  <View
+                    style={[
+                      globalStyles.center,
+                      {
+                        width: 32,
+                        height: 32,
+                        borderRadius: 999,
+                        backgroundColor: colors.primary.p500,
+                      },
+                    ]}>
+                    <ArrowRight size={24} color={colors.white.w500} />
+                  </View>
+                </Row>
+              )}
+            </Row>
 
-  const buttonSkipLabel = () => {
-    return (
-      <Row
-        styles={{
-          position: 'absolute',
-          top: -700,
-          right: -350,
-        }}>
-        <TextComponent text="Skip" />
-        <Space width={5} />
-        {/* <ButtonComponent
-          onPress={() => {}}
-          icon={<ArrowCircleRight2 size={28} color={colors.white.w500} />}
-          inline
-          type="outline"
-          backgroundColor={colors.primary.p500}
-        /> */}
-        <View style={{backgroundColor: colors.primary.p500, borderRadius: 999}}>
-          <ArrowCircleRight2 size={28} color={colors.white.w500} />
-        </View>
-      </Row>
-    );
-  };
-
-  const buttonDoneLabel = () => {
-    return (
-      <View
-        style={{
-          width: SIZES.width - 32,
-          height: 50,
-          backgroundColor: colors.primary.p500,
-          borderRadius: 999,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <TextComponent text="Get Started" size={18} color={colors.white.w500} />
-      </View>
-    );
-  };
-
-  if (!showHomeAuth) {
-    return (
-      <AppIntroSlider
-        data={slides}
-        renderItem={({item}) => {
-          return (
-            <View>
-              <Image
-                source={item.image}
-                style={{
-                  width: SIZES.width,
-                  height: SIZES.height,
-                }}
-                resizeMode="contain"
-              />
+            {/* cách 2 */}
+            <View style={{flex: 1}} />
+            <Row styles={{paddingVertical: 20}}>
               <CardComponent
-                styles={{
-                  position: 'absolute',
-                  bottom: 30,
-                  left: 0,
-                  right: 0,
-                  height: 300,
-                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                }}
-                type="horizontal">
-                <Space height={20} />
+                styles={[
+                  {
+                    flex: 1,
+                    padding: 30,
+                    // backgroundColor: 'rgba(255,255,255,0.9)',
+                  },
+                ]}>
+                <Text
+                  style={[
+                    globalStyles.text,
+                    {
+                      textAlign: 'center',
+                      color: colors.dark.d500,
+                      fontFamily: fonts.Bold,
+                      fontSize: 20,
+                    },
+                  ]}>
+                  {item.title.split('keyWord').map((text, index) => (
+                    <Row
+                      key={`text${index}`}
+                      styles={{
+                        flexDirection: 'column',
+                      }}>
+                      <Text
+                        style={[
+                          globalStyles.text,
+                          {
+                            textAlign: 'center',
+                            color: colors.dark.d500,
+                            fontFamily: fonts.Bold,
+                            fontSize: 20,
+                          },
+                        ]}>
+                        {text}
+                      </Text>
+                      {index === 0 && (
+                        <Text
+                          key={`text${index}`}
+                          style={[
+                            globalStyles.text,
+                            {
+                              textAlign: 'center',
+                              color: colors.primary.p500,
+                              fontFamily: fonts.Bold,
+                              fontSize: 20,
+                            },
+                          ]}>
+                          {item.keyWord}
+                        </Text>
+                      )}
+                    </Row>
+                  ))}
+                </Text>
+                <Space height={10} />
                 <TextComponent
-                  text={item.title}
+                  text={item.description}
+                  color={colors.gray.g500_80}
+                  size={14}
                   textAlign="center"
-                  size={30}
-                  font={fonts.Semibold}
                 />
+
                 <Space height={20} />
 
-                <TextComponent
-                  textAlign="center"
-                  color={colors.gray.g500_80}
-                  text={item.description}
+                <Row>
+                  {slides.map((item, int) => (
+                    <View
+                      key={item.id}
+                      style={[
+                        globalStyles.dot,
+                        {
+                          paddingHorizontal: int === index ? 12 : 0,
+                          backgroundColor:
+                            int === index
+                              ? colors.primary.p500
+                              : colors.gray.g500_80,
+                        },
+                      ]}
+                    />
+                  ))}
+                </Row>
+
+                <Space height={20} />
+
+                <ButtonComponent
+                  onPress={() => {
+                    if (index === slides.length - 1) {
+                      navigation.navigate('Login');
+                    } else {
+                      setIndex(index + 1);
+                      swiperRef.current?.goToSlide(index + 1);
+                    }
+                  }}
+                  value={index === slides.length - 1 ? 'Get Started' : 'Next'}
+                  backgroundColor={colors.primary.p500}
+                  // buttonStyles={{backgroundColor: colors.primary.p500}}
+                  // color={colors.white.w500}
+                  type="primary"
+                  textStyleProps={{fontFamily: fonts.Bold}}
                 />
               </CardComponent>
-            </View>
-          );
-        }}
-        activeDotStyle={{
-          backgroundColor: colors.primary.p500,
-          width: 50,
-          marginBottom: 100,
-        }}
-        dotStyle={{
-          backgroundColor: colors.dark.d500_20,
-          marginBottom: 100,
-        }}
-        renderNextButton={() => buttonNextLabel()}
-        showSkipButton
-        renderSkipButton={() => buttonSkipLabel()}
-        renderDoneButton={() => buttonDoneLabel()}
-        onDone={() => {
-          setShowHomeAuth(true);
-        }}
-      />
-    );
-  }
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text>HomeAuth</Text>
-    </View>
+            </Row>
+          </ImageBackground>
+        );
+      }}
+      renderPagination={() => null}
+    />
   );
 };
 

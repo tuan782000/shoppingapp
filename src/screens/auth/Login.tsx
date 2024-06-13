@@ -12,8 +12,9 @@ import {
 } from '../../components';
 import {colors} from '../../constants/colors';
 import {fonts} from '../../constants/fonts';
+import {globalStyles} from '../../styles/globalStyles';
 
-const Login = () => {
+const Login = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,7 +22,7 @@ const Login = () => {
     <Container>
       <Section>
         <Space height={20} />
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View style={[globalStyles.center]}>
           <Image
             source={require('../../assets/images/icon-logo.png')}
             style={{
@@ -62,7 +63,7 @@ const Login = () => {
         {/* <Space height={5} /> */}
         <View style={{alignItems: 'flex-end'}}>
           <ButtonComponent
-            onPress={() => console.log('forgot password')}
+            onPress={() => navigation.navigate('ForgotPassword')}
             type="link"
             value="Forgot Password?"
           />
@@ -78,18 +79,20 @@ const Login = () => {
           <View
             style={{
               height: 1,
-              width: '34%',
+              flex: 1,
               backgroundColor: colors.gray.g500_80,
-            }}></View>
+            }}
+          />
           <Space width={10} />
           <TextComponent text="Or login with" />
           <Space width={10} />
           <View
             style={{
               height: 1,
-              width: '34%',
+              flex: 1,
               backgroundColor: colors.gray.g500_80,
-            }}></View>
+            }}
+          />
         </Row>
         <Space height={20} />
 
@@ -126,7 +129,7 @@ const Login = () => {
           <TextComponent text="First time here?" />
           <Space width={4} />
           <ButtonComponent
-            onPress={() => console.log('SignUp')}
+            onPress={() => navigation.navigate('Register')}
             type="link"
             value="SignUp"
           />

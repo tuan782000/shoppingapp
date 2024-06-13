@@ -11,7 +11,7 @@ import {
 import {colors} from '../../../constants/colors';
 import {Heart} from 'iconsax-react-native';
 
-const PopularProducts = ({navigation}: any) => {
+const Products = ({navigation}: any) => {
   const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {
@@ -53,18 +53,26 @@ const PopularProducts = ({navigation}: any) => {
         desc: 'Happy Rose',
         price: 300,
       },
+      {
+        id: 5,
+        image:
+          'https://plus.unsplash.com/premium_photo-1668638806052-4544af05f648?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        name: 'Dennis Lingo',
+        desc: 'Happy Rose',
+        price: 250,
+      },
+      {
+        id: 6,
+        image:
+          'https://images.unsplash.com/photo-1530735038726-a73fd6e6a349?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        name: 'Makars & Spencer',
+        desc: 'Happy Rose',
+        price: 140,
+      },
     ]);
   };
   return (
     <View>
-      <View style={{paddingHorizontal: 16}}>
-        <Tabbar
-          title="Popular Products"
-          viewAll
-          onViewAll={() => navigation.navigate('Product')}
-        />
-      </View>
-
       <Space height={20} />
 
       {/* <FlatList
@@ -125,4 +133,4 @@ const PopularProducts = ({navigation}: any) => {
   );
 };
 
-export default PopularProducts;
+export default Products;

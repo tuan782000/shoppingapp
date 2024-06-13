@@ -65,4 +65,11 @@ export const globalStyles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 8,
   },
+  dot: {
+    width: 8,
+    height: 8,
+    backgroundColor: colors.gray.g500_80,
+    borderRadius: 999,
+    marginHorizontal: 4,
+  },
 });

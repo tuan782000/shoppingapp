@@ -18,10 +18,21 @@ type Props = {
   titlePosition?: 'left' | 'center' | 'right';
   right?: ReactNode;
   left?: ReactNode;
+  navigation?: any;
 };
 
 const Container = (props: Props) => {
-  const {children, isScroll, back, title, titlePosition, right, left} = props;
+  const {
+    children,
+    isScroll,
+    back,
+    title,
+    titlePosition,
+    right,
+    left,
+    navigation,
+  } = props;
+
   return (
     <SafeAreaView style={[globalStyles.container]}>
       {title || back || right || left ? (
@@ -46,10 +57,11 @@ const Container = (props: Props) => {
               //   iconPosition="right"
               //   type="link"
               //   value={title}
-              icon={<ArrowLeft2 size={20} color={colors.dark.d500} />}
+              icon={<ArrowLeft2 size={28} color={colors.dark.d500} />}
               onPress={() => {
                 // navigation.goBack() - quay lại màn hình trước đó
-                console.log('test');
+                // console.log('test');
+                navigation.goBack();
               }}
             />
           ) : (

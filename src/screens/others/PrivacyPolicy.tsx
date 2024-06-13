@@ -5,7 +5,7 @@ import {colors} from '../../constants/colors';
 
 const PrivacyPolicy = () => {
   return (
-    <Container back title="Privacy Policy">
+    <Container back title="Privacy Policy" titlePosition="center">
       <Section>
         <Space height={20} />
         <TextComponent

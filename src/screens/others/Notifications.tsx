@@ -5,7 +5,7 @@ import {Icon} from 'iconsax-react-native';
 
 const Notifications = () => {
   return (
-    <Container back title="Notifications">
+    <Container back title="Notifications" titlePosition="center">
       <Section>
         <Space height={20} />
         <TextComponent text="Today" />

@@ -1,5 +1,5 @@
-import {View, Text, Image} from 'react-native';
-import React, {useState} from 'react';
+import {View, Text, Image, TextInput, StyleSheet} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   ButtonComponent,
   Container,
@@ -12,16 +12,32 @@ import {
 import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
 import {SIZES} from '../../constants/theme';
+import {globalStyles} from '../../styles/globalStyles';
 
-const VerificationCode = () => {
-  const [numberOne, setnumberOne] = useState('');
-  const [numberTwo, setnumberTwo] = useState('');
-  const [numberThree, setnumberThree] = useState('');
-  const [numberFour, setnumberFour] = useState('');
+const VerificationCode = ({navigation}: any) => {
+  const [numbers, setNumbers] = useState<string[]>([]);
+  const [nums, setNums] = useState('');
+
+  const inputRef1 = useRef<TextInput>(null);
+  const inputRef2 = useRef<TextInput>(null);
+  const inputRef3 = useRef<TextInput>(null);
+  const inputRef4 = useRef<TextInput>(null);
+
+  useEffect(() => {
+    inputRef1.current?.focus();
+  }, []);
+
+  const handleChangeValue = (val: string, index: number) => {
+    const items = [...numbers];
+    items[index] = val;
+
+    setNumbers(items);
+  };
+
   return (
-    <Container back>
+    <Container back navigation={navigation}>
       <Section>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View style={[globalStyles.center]}>
           <TextComponent
             textAlign="center"
             text="Enter Verification Code"
@@ -36,18 +52,114 @@ const VerificationCode = () => {
             numberOfLines={2}
             styles={{width: 300}}
           />
+          <Image
+            source={require('../../assets/images/Enter-OTP-cuate.png')}
+            style={{width: SIZES.width, height: 340}}
+            resizeMode="contain"
+          />
         </View>
-
-        <Image
-          source={require('../../assets/images/sms.png')}
-          style={{width: SIZES.width, height: 340}}
-          resizeMode="contain"
-        />
 
         <Space height={40} />
 
-        <Row>
-          <Input
+        <Row justifyContent="space-around">
+          <TextInput
+            ref={inputRef1}
+            value={numbers[0]}
+            onChangeText={val => {
+              handleChangeValue(val, 0);
+              val && inputRef2.current?.focus();
+            }}
+            style={[
+              localStyles.input,
+              {
+                backgroundColor: inputRef1.current?.isFocused()
+                  ? colors.white.w500
+                  : colors.light.l500,
+                borderWidth: inputRef1.current?.isFocused() ? 1 : 0,
+                borderColor: colors.gray.g500,
+              },
+            ]}
+            keyboardType="number-pad"
+            maxLength={1}
+          />
+          <TextInput
+            ref={inputRef2}
+            value={numbers[1]}
+            onChangeText={val => {
+              handleChangeValue(val, 1);
+              val && inputRef3.current?.focus();
+            }}
+            style={[
+              localStyles.input,
+              {
+                backgroundColor: inputRef1.current?.isFocused()
+                  ? colors.white.w500
+                  : colors.light.l500,
+                borderWidth: inputRef1.current?.isFocused() ? 1 : 0,
+                borderColor: colors.gray.g500,
+              },
+            ]}
+            keyboardType="number-pad"
+            maxLength={1}
+          />
+          <TextInput
+            ref={inputRef3}
+            value={numbers[2]}
+            onChangeText={val => {
+              handleChangeValue(val, 2);
+              val && inputRef4.current?.focus();
+            }}
+            style={[
+              localStyles.input,
+              {
+                backgroundColor: inputRef1.current?.isFocused()
+                  ? colors.white.w500
+                  : colors.light.l500,
+                borderWidth: inputRef1.current?.isFocused() ? 1 : 0,
+                borderColor: colors.gray.g500,
+              },
+            ]}
+            keyboardType="number-pad"
+            maxLength={1}
+          />
+          <TextInput
+            ref={inputRef4}
+            value={numbers[3]}
+            onChangeText={val => handleChangeValue(val, 3)}
+            style={[
+              localStyles.input,
+              {
+                backgroundColor: inputRef1.current?.isFocused()
+                  ? colors.white.w500
+                  : colors.light.l500,
+                borderWidth: inputRef1.current?.isFocused() ? 1 : 0,
+                borderColor: colors.gray.g500,
+              },
+            ]}
+            keyboardType="number-pad"
+            maxLength={1}
+          />
+          {/* {Array.from({length: 4}).map((item, index) => (
+            <Input
+              key={`input${index}`}
+              onChange={val => setNums((numbers[index] = val))}
+              value={numbers[index]}
+              autoCapitalize="none"
+              keyboardType="number-pad"
+              styles={[globalStyles.center, {width: 60, height: 60}]}
+              inputStyles={[
+                {
+                  fontSize: 28,
+                  padding: 0,
+                  lineHeight: 38,
+                  fontFamily: fonts.Bold,
+                  textAlign: 'center',
+                },
+              ]}
+              max={1}
+            />
+          ))} */}
+          {/* <Input
             onChange={val => setnumberOne(val)}
             value={numberOne}
             autoCapitalize="none"
@@ -83,7 +195,7 @@ const VerificationCode = () => {
             keyboardType="number-pad"
             // inputStyles={{width: 30}}
             styles={{width: 60, height: 60}}
-          />
+          /> */}
         </Row>
         <Space height={10} />
         <Row justifyContent="flex-end">
@@ -98,7 +210,10 @@ const VerificationCode = () => {
         </Row>
         <Space height={20} />
         <ButtonComponent
-          onPress={() => console.log('Verify')}
+          onPress={() => {
+            console.log(numbers);
+            // navigation.navigate('EnterNewPassword')
+          }}
           type="primary"
           backgroundColor={colors.primary.p500}
           value="Verify"
@@ -109,3 +224,18 @@ const VerificationCode = () => {
 };
 
 export default VerificationCode;
+
+const localStyles = StyleSheet.create({
+  input: {
+    width: 60,
+    height: 60,
+    borderRadius: 12,
+    backgroundColor: colors.light.l500,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontFamily: fonts.Bold,
+    fontSize: 28,
+    lineHeight: 40,
+  },
+});
