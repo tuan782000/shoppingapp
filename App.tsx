@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
-import Home from './src/screens/homes/HomeScreen';
+import {StatusBar} from 'react-native';
 import Routers from './src/routers/Routers';
 
 const App = () => {

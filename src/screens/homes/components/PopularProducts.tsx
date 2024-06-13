@@ -10,9 +10,12 @@ import {
 } from '../../../components';
 import {colors} from '../../../constants/colors';
 import {Heart} from 'iconsax-react-native';
+import {useNavigation} from '@react-navigation/native';
 
-const PopularProducts = ({navigation}: any) => {
+const PopularProducts = () => {
   const [products, setProducts] = useState<any[]>([]);
+
+  const navigation: any = useNavigation();
 
   useEffect(() => {
     getProducts();

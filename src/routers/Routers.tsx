@@ -40,11 +40,18 @@ const Routers = () => {
   const getAuth = async () => {};
 
   const getCarts = async () => {};
+
+  /*
+    axios: BE,
+    asyncStorage: save to local
+    redux tookit: store
+  */
+
   return isShowSplash ? (
     <SplashScreen />
   ) : (
     <NavigationContainer>
-      {1 > 2 ? <AuthNavigator /> : <MainNavigator />}
+      {1 < 2 ? <AuthNavigator /> : <MainNavigator />}
     </NavigationContainer>
   );
 };

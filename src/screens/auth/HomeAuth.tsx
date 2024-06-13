@@ -1,14 +1,7 @@
-import {
-  View,
-  Text,
-  Image,
-  ImageBackground,
-  Platform,
-  StatusBar,
-} from 'react-native';
+import {ArrowRight} from 'iconsax-react-native';
 import React, {useRef, useState} from 'react';
+import {ImageBackground, Platform, StatusBar, Text, View} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import {SIZES} from '../../constants/theme';
 import {
   ButtonComponent,
   CardComponent,
@@ -16,13 +9,8 @@ import {
   Space,
   TextComponent,
 } from '../../components';
-import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
-import {
-  ArrowCircleLeft2,
-  ArrowCircleRight2,
-  ArrowRight,
-} from 'iconsax-react-native';
+import {fonts} from '../../constants/fonts';
 import {globalStyles} from '../../styles/globalStyles';
 
 interface SlideItem {
@@ -88,8 +76,9 @@ const HomeAuth = ({navigation}: any) => {
               {index < slides.length - 1 && (
                 <Row
                   onPress={() => {
-                    setIndex(index + 1);
-                    swiperRef.current?.goToSlide(index + 1);
+                    navigation.navigate('Login');
+                    // setIndex(index + 1);
+                    // swiperRef.current?.goToSlide(index + 1);
                     // swiperRef.current?.goToSlide(index + (slides.length - 1));
                   }}>
                   <TextComponent text="Skip" color={colors.primary.p500} />
@@ -155,7 +144,7 @@ const HomeAuth = ({navigation}: any) => {
                           style={[
                             globalStyles.text,
                             {
-                              textAlign: 'center',
+                              // textAlign: 'center',
                               color: colors.primary.p500,
                               fontFamily: fonts.Bold,
                               fontSize: 20,

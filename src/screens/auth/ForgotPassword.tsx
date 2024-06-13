@@ -1,9 +1,10 @@
-import {View, Text, Image} from 'react-native';
-import React, {useState} from 'react';
+import {View, Text, Image, TextInput} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {
   ButtonComponent,
   Container,
   Input,
+  Row,
   Section,
   Space,
   TextComponent,
@@ -11,14 +12,19 @@ import {
 import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
 import {SIZES} from '../../constants/theme';
-import {Message, Sms} from 'iconsax-react-native';
+import {Home, Message, Mobile, Sms} from 'iconsax-react-native';
 import {globalStyles} from '../../styles/globalStyles';
+import {InfoModal} from '../../modals';
 
 const ForgotPassword = ({navigation}: any) => {
   const [otp, setOtp] = useState('');
   const [sms, setSms] = useState('');
+  const [isVisibleModalInfo, setIsVisibleModalInfo] = useState(false);
+
+  const [isFocused, setIsFocused] = useState<'email' | 'sms' | undefined>();
+
   return (
-    <Container back navigation={navigation}>
+    <Container back>
       <Section>
         <Space height={20} />
         <View style={[globalStyles.center]}>
@@ -60,11 +66,33 @@ const ForgotPassword = ({navigation}: any) => {
             </View>
           }
         />
-        <Input
+        <Row
+          styles={{
+            backgroundColor: '#e0e0e0',
+            marginBottom: 16,
+            padding: 8,
+            borderRadius: 12,
+          }}>
+          <Home size={24} color="coral" />
+          <Space width={12} />
+          <View style={{flex: 1, minHeight: 58}}>
+            {(isFocused === 'email' || sms) && (
+              <TextComponent text="Email" color={colors.gray.g500_80} />
+            )}
+            <TextInput
+              onFocus={() => setIsFocused('email')}
+              value={sms}
+              style={{padding: 0, margin: 0, flex: 1}}
+              placeholder="Send OTP via Email"
+              onChangeText={val => setSms(val)}
+            />
+          </View>
+        </Row>
+        {/* <Input
           onChange={val => setSms(val)}
           value={sms}
           placeholder="Send OTP via Email"
-          autoCapitalize="none"
+          autoCapitalize="none" 
           prefix={
             <View
               style={{
@@ -80,15 +108,25 @@ const ForgotPassword = ({navigation}: any) => {
               />
             </View>
           }
-        />
+        /> */}
 
         <ButtonComponent
-          onPress={() => navigation.navigate('VerificationCode')}
+          onPress={() => setIsVisibleModalInfo(true)}
+          // onPress={() => navigation.navigate('VerificationCode')}
           type="primary"
           value="Continue"
           backgroundColor={colors.primary.p500}
         />
       </Section>
+
+      <InfoModal
+        visible={isVisibleModalInfo}
+        onOk={() => setIsVisibleModalInfo(false)}
+        title="Password update successfully!"
+        description="Your password has been update successfully!"
+        okText="Back to HomeScreen"
+        icon={<Mobile size={100} color={colors.primary.p500} />}
+      />
     </Container>
   );
 };

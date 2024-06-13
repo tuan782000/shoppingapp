@@ -18,7 +18,7 @@ const EnterNewPassword = ({navigation}: any) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   return (
-    <Container back navigation={navigation}>
+    <Container back>
       <Section>
         <View style={[globalStyles.center]}>
           <TextComponent
