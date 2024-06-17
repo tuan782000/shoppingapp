@@ -1,26 +1,31 @@
-import {View, Text, Image, TextInput, StyleSheet, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {addListener} from '@reduxjs/toolkit';
 import React, {useEffect, useRef, useState} from 'react';
+import {Alert, Image, StyleSheet, TextInput, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {handleAuthAPI} from '../../apis/authAPI';
 import {
   ButtonComponent,
   Container,
-  Input,
   Row,
   Section,
   Space,
   TextComponent,
 } from '../../components';
-import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
+import {fonts} from '../../constants/fonts';
 import {SIZES} from '../../constants/theme';
-import {globalStyles} from '../../styles/globalStyles';
 import {Loading} from '../../modals';
-import {handleAuthAPI} from '../../apis/authAPI';
+import {globalStyles} from '../../styles/globalStyles';
+import {addAuth} from '../../redux/reducers/authReducer';
 
 const VerificationCode = ({navigation, route}: any) => {
   const {code, id} = route.params;
 
   const [numbers, setNumbers] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const inputRef1 = useRef<TextInput>(null);
   const inputRef2 = useRef<TextInput>(null);
@@ -44,7 +49,9 @@ const VerificationCode = ({navigation, route}: any) => {
     } else {
       let nums = '';
       numbers.forEach(num => (nums += num));
-      console.log(nums);
+
+      console.log(code);
+
       if (nums !== `${code}`) {
         Alert.alert('', 'Verification code is not correct');
       } else {
@@ -52,7 +59,8 @@ const VerificationCode = ({navigation, route}: any) => {
         try {
           const res = await handleAuthAPI('/verification', {id}, 'post');
           setIsLoading(false);
-          console.log(res);
+          await AsyncStorage.setItem('authData', JSON.stringify(res.data));
+          dispatch(addAuth(res.data));
         } catch (error) {
           console.log(error);
           setIsLoading(false);
@@ -166,63 +174,6 @@ const VerificationCode = ({navigation, route}: any) => {
             keyboardType="number-pad"
             maxLength={1}
           />
-          {/* {Array.from({length: 4}).map((item, index) => (
-            <Input
-              key={`input${index}`}
-              onChange={val => setNums((numbers[index] = val))}
-              value={numbers[index]}
-              autoCapitalize="none"
-              keyboardType="number-pad"
-              styles={[globalStyles.center, {width: 60, height: 60}]}
-              inputStyles={[
-                {
-                  fontSize: 28,
-                  padding: 0,
-                  lineHeight: 38,
-                  fontFamily: fonts.Bold,
-                  textAlign: 'center',
-                },
-              ]}
-              max={1}
-            />
-          ))} */}
-          {/* <Input
-            onChange={val => setnumberOne(val)}
-            value={numberOne}
-            autoCapitalize="none"
-            keyboardType="number-pad"
-            // inputStyles={{width: 30}}
-            styles={{width: 60, height: 60}}
-          />
-          <Space width={20} />
-          <Input
-            onChange={val => setnumberTwo(val)}
-            value={numberTwo}
-            autoCapitalize="none"
-            keyboardType="number-pad"
-            // inputStyles={{width: 30}}
-            styles={{width: 60, height: 60}}
-          />
-          <Space width={20} />
-
-          <Input
-            onChange={val => setnumberThree(val)}
-            value={numberThree}
-            autoCapitalize="none"
-            keyboardType="number-pad"
-            // inputStyles={{width: 30}}
-            styles={{width: 60, height: 60}}
-          />
-          <Space width={20} />
-
-          <Input
-            onChange={val => setnumberFour(val)}
-            value={numberFour}
-            autoCapitalize="none"
-            keyboardType="number-pad"
-            // inputStyles={{width: 30}}
-            styles={{width: 60, height: 60}}
-          /> */}
         </Row>
         <Space height={10} />
         <Row justifyContent="flex-end">

@@ -3,6 +3,8 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
 import Routers from './src/routers/Routers';
+import {Provider} from 'react-redux';
+import store from './src/redux/store';
 
 const App = () => {
   return (
@@ -15,7 +17,9 @@ const App = () => {
       {/* <Home /> */}
       {/* Routers: lý do router sẽ bọc nguyên cái App - mà dưới này đã gọi thành ra xung đột */}
       {/* Chính vì vậy mình sẽ gọi ở đây và chuyển giao cho thư mục routers xử lý */}
-      <Routers />
+      <Provider store={store}>
+        <Routers />
+      </Provider>
     </>
   );
 };

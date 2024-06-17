@@ -3,7 +3,7 @@ import queryString from "query-string";
 
 const axiosClient = axios.create({
   paramsSerializer: params => queryString.stringify(params),
-  baseURL: 'http://192.168.1.12:3001'
+  baseURL: 'http://192.168.1.9:3001'
 });
 
 axiosClient.interceptors.request.use(async (config: any) => {

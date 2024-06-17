@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, Button} from 'react-native';
 import React from 'react';
 import {
   Avatar,
@@ -16,8 +16,13 @@ import {colors} from '../../constants/colors';
 import TopCategories from './components/TopCategories';
 import TopBrands from './components/TopBrands';
 import PopularProducts from './components/PopularProducts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../redux/reducers/authReducer';
 
 const HomeScreen = ({navigation}: any) => {
+  const dispatch = useDispatch();
+
   return (
     <Container
       // isScroll={false}
@@ -43,6 +48,13 @@ const HomeScreen = ({navigation}: any) => {
             size={40}
           />
         </Row> */}
+        <ButtonComponent
+          value="Logout"
+          onPress={async () => {
+            await AsyncStorage.removeItem('authData');
+            dispatch(logout({}));
+          }}
+        />
         <TextComponent
           font={fonts.Bold}
           size={30}

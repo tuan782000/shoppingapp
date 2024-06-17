@@ -1,6 +1,6 @@
 import {Lock1, Sms} from 'iconsax-react-native';
 import React, {useState} from 'react';
-import {Image, View} from 'react-native';
+import {Alert, Image, View} from 'react-native';
 import {
   ButtonComponent,
   Container,
@@ -13,10 +13,38 @@ import {
 import {colors} from '../../constants/colors';
 import {fonts} from '../../constants/fonts';
 import {globalStyles} from '../../styles/globalStyles';
+import {Loading} from '../../modals';
+import {handleAuthAPI} from '../../apis/authAPI';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {addAuth} from '../../redux/reducers/authReducer';
 
 const Login = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleLogin = async () => {
+    if (email && password) {
+      const data = {email, password};
+      setIsLoading(true);
+      try {
+        const res = await handleAuthAPI('/login', data, 'post');
+        console.log(res.data);
+
+        await AsyncStorage.setItem('authData', JSON.stringify(res.data));
+        dispatch(addAuth(res.data));
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
+    } else {
+      Alert.alert('', 'Missing value');
+    }
+  };
 
   return (
     <Container>
@@ -70,7 +98,7 @@ const Login = ({navigation}: any) => {
         </View>
         <Space height={25} />
         <ButtonComponent
-          onPress={() => console.log('Login')}
+          onPress={handleLogin}
           type="primary"
           value="Login"
           backgroundColor={colors.primary.p500}
@@ -135,6 +163,7 @@ const Login = ({navigation}: any) => {
           />
         </Row>
       </Section>
+      <Loading visible={isLoading} />
     </Container>
   );
 };
