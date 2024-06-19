@@ -12,13 +12,16 @@ import {Image, View} from 'react-native';
 import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
 import {SIZES} from '../../constants/theme';
-import {Lock1} from 'iconsax-react-native';
+import {Lock1, Mobile} from 'iconsax-react-native';
+import {InfoModal} from '../../modals';
 
 const EnterNewPassword = ({navigation}: any) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [isVisibleModalInfo, setIsVisibleModalInfo] = useState(false);
   return (
-    <Container back navigation={navigation}>
+    <Container back>
       <Section>
         <View style={[globalStyles.center]}>
           <TextComponent
@@ -60,12 +63,24 @@ const EnterNewPassword = ({navigation}: any) => {
         />
         <Space height={20} />
         <ButtonComponent
-          onPress={() => {}}
+          onPress={() => setIsVisibleModalInfo(true)}
           type="primary"
           backgroundColor={colors.primary.p500}
           value="Verify"
         />
       </Section>
+
+      <InfoModal
+        visible={isVisibleModalInfo}
+        onOk={() => {
+          setIsVisibleModalInfo(false);
+          navigation.navigate('Login');
+        }}
+        title="Password update successfully"
+        description="Your password has been updated successfully"
+        icon={<Mobile size={100} color={colors.primary.p500} />}
+        okText="Back to HomeScreen"
+      />
     </Container>
   );
 };

@@ -16,7 +16,7 @@ import {View} from 'react-native';
 const SearchScreen = ({navigation}: any) => {
   const [search, setSearch] = useState('');
   return (
-    <Container back navigation={navigation}>
+    <Container back>
       <Section>
         <Space height={10} />
         <Input

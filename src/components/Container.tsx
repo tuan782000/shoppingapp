@@ -9,6 +9,7 @@ import TextComponent from './TextComponent';
 import {StatusBar} from 'react-native';
 import Space from './Space';
 import {fonts} from '../constants/fonts';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = {
   children: ReactNode;
@@ -18,20 +19,12 @@ type Props = {
   titlePosition?: 'left' | 'center' | 'right';
   right?: ReactNode;
   left?: ReactNode;
-  navigation?: any;
 };
 
 const Container = (props: Props) => {
-  const {
-    children,
-    isScroll,
-    back,
-    title,
-    titlePosition,
-    right,
-    left,
-    navigation,
-  } = props;
+  const {children, isScroll, back, title, titlePosition, right, left} = props;
+
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={[globalStyles.container]}>
@@ -61,7 +54,9 @@ const Container = (props: Props) => {
               onPress={() => {
                 // navigation.goBack() - quay lại màn hình trước đó
                 // console.log('test');
-                navigation.goBack();
+                if (navigation.canGoBack()) {
+                  navigation.goBack();
+                }
               }}
             />
           ) : (

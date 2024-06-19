@@ -6,11 +6,7 @@ import Products from './components/Products';
 
 const ProductScreen = ({navigation}: any) => {
   return (
-    <Container
-      back
-      title="Men's"
-      titlePosition="center"
-      navigation={navigation}>
+    <Container back title="Men's" titlePosition="center">
       <Section>
         {/* <TextComponent text="Products" /> */}
         {/* <View style={{marginLeft: -16}}>

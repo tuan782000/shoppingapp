@@ -13,6 +13,8 @@ import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
 import {Lock1, Sms, User} from 'iconsax-react-native';
 import {globalStyles} from '../../styles/globalStyles';
+import {Loading} from '../../modals';
+import {handleAuthAPI} from '../../api/authAPI';
 
 const Register = ({navigation}: any) => {
   const [name, setName] = useState('');
@@ -20,10 +22,34 @@ const Register = ({navigation}: any) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (password !== confirmPassword) {
       setError('Passwords do not match');
+    } else {
+      // SignIn
+      const data = {
+        email,
+        password,
+        fullName: name,
+      };
+
+      setIsLoading(true);
+
+      try {
+        const res: any = await handleAuthAPI('/register', data, 'post');
+        console.log(res.data);
+
+        navigation.navigate('VerificationCode', {
+          code: res.data.verificationCode,
+          id: res.data.id,
+        });
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
     }
   };
 
@@ -92,7 +118,7 @@ const Register = ({navigation}: any) => {
         />
 
         <ButtonComponent
-          onPress={() => console.log('SignUp')}
+          onPress={handleSignUp}
           type="primary"
           value="Sign Up"
           backgroundColor={colors.primary.p500}
@@ -155,6 +181,7 @@ const Register = ({navigation}: any) => {
           />
         </Row>
       </Section>
+      <Loading visible={isLoading} />
     </Container>
   );
 };

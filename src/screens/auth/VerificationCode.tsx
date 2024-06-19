@@ -1,4 +1,4 @@
-import {View, Text, Image, TextInput, StyleSheet} from 'react-native';
+import {View, Text, Image, TextInput, StyleSheet, Alert} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   ButtonComponent,
@@ -13,10 +13,24 @@ import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
 import {SIZES} from '../../constants/theme';
 import {globalStyles} from '../../styles/globalStyles';
+import {Loading} from '../../modals';
+import {handleAuthAPI} from '../../api/authAPI';
+import {useDispatch, useSelector} from 'react-redux';
+import {authSelector, addAuth} from '../../redux/reducers/authReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const VerificationCode = ({navigation}: any) => {
+const VerificationCode = ({navigation, route}: any) => {
+  const {code, id} = route.params;
+
+  console.log(route.params);
+  console.log(code);
+  console.log(id);
+
   const [numbers, setNumbers] = useState<string[]>([]);
-  const [nums, setNums] = useState('');
+  const [isLoading, setisLoading] = useState(false);
+
+  // Redux
+  const dispatch = useDispatch();
 
   const inputRef1 = useRef<TextInput>(null);
   const inputRef2 = useRef<TextInput>(null);
@@ -34,8 +48,36 @@ const VerificationCode = ({navigation}: any) => {
     setNumbers(items);
   };
 
+  const handleVerification = async () => {
+    if (numbers.length < 4) {
+      Alert.alert('Notfication', 'Verification code is not correct');
+    } else {
+      setisLoading(true);
+      let nums = '';
+      numbers.forEach(num => (nums += num));
+
+      if (nums != `${code}`) {
+        Alert.alert('Notification', 'Verification code is not correct');
+      } else {
+        try {
+          const res = await handleAuthAPI('/verification', {id}, 'post');
+          setisLoading(false);
+
+          console.log(res);
+          // trước khi di chuyển sang màn hình khác phải lưu token đó vào AsyncStore
+          await AsyncStorage.setItem('authData', JSON.stringify(res.data));
+          // Sau khi đã có "res". Tới đây sẽ là việc của redux
+          dispatch(addAuth(res.data));
+        } catch (error) {
+          console.log(error);
+          setisLoading(false);
+        }
+      }
+    }
+  };
+
   return (
-    <Container back navigation={navigation}>
+    <Container back>
       <Section>
         <View style={[globalStyles.center]}>
           <TextComponent
@@ -210,15 +252,13 @@ const VerificationCode = ({navigation}: any) => {
         </Row>
         <Space height={20} />
         <ButtonComponent
-          onPress={() => {
-            console.log(numbers);
-            // navigation.navigate('EnterNewPassword')
-          }}
+          onPress={handleVerification}
           type="primary"
           backgroundColor={colors.primary.p500}
           value="Verify"
         />
       </Section>
+      <Loading visible={isLoading} />
     </Container>
   );
 };
