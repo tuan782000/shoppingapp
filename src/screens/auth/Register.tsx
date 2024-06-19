@@ -1,5 +1,5 @@
 import {View, Text, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ButtonComponent,
   Container,
@@ -16,41 +16,113 @@ import {globalStyles} from '../../styles/globalStyles';
 import {Loading} from '../../modals';
 import {handleAuthAPI} from '../../api/authAPI';
 
+const initialStateFormRegister = {
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+
+const initialErrors = {
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+
 const Register = ({navigation}: any) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  // cách 1: coder lương 7 tr
+  // const [name, setName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
+
+  // cách 2: coder lương 2k đô
+  const [registerForm, setRegisterForm] = useState<any>(
+    initialStateFormRegister,
+  );
+
+  const [errors, setErrors] = useState<any>(initialErrors);
+  const [isFormValid, setIsFormValid] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    const noErrors = Object.values(errors).every(error => error === '');
+    const allFieldsFilled = Object.values(registerForm).every(
+      value => value !== '',
+    );
+    setIsFormValid(noErrors && allFieldsFilled);
+  }, [registerForm, errors]);
+
+  // Hàm dùng để lấy các value của mỗi ô input ra
+  const handleChangeValue = (key: string, value: string) => {
+    const data: any = {...registerForm}; // sau khi lấy được initialStateFormRegister gán cho data
+    data[`${key}`] = value; // giờ đây đã kiểm soát được dữ liệu từng ô bằng biến data
+    setRegisterForm(data); // cập nhật lại giá trị từng ô bằng data
+
+    validateInput(key, value);
+  };
+
+  const validateInput = (key: string, value: string) => {
+    const newErrors: any = {...errors};
+
+    switch (key) {
+      case 'name':
+        newErrors.name =
+          value.length < 3 ? 'Name must be at least 3 characters' : '';
+        break;
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        newErrors.email = !emailRegex.test(value)
+          ? 'Invalid email address'
+          : '';
+        break;
+      case 'password':
+        newErrors.password =
+          value.length < 6 ? 'Password must be at least 6 characters' : '';
+        break;
+      case 'confirmPassword':
+        newErrors.confirmPassword =
+          value !== registerForm.password ? 'Passwords do not match' : '';
+        break;
+      default:
+        break;
+    }
+
+    setErrors(newErrors);
+  };
+
   const handleSignUp = async () => {
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-    } else {
-      // SignIn
+    // Check for errors before submitting
+    if (Object.values(errors).some(error => error !== '')) {
+      console.log('There are errors in the form');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
       const data = {
-        email,
-        password,
-        fullName: name,
+        email: registerForm.email,
+        name: registerForm.name,
+        password: registerForm.password,
       };
 
-      setIsLoading(true);
+      const res: any = await handleAuthAPI('/register', data, 'post');
+      console.log(res.data);
 
-      try {
-        const res: any = await handleAuthAPI('/register', data, 'post');
-        console.log(res.data);
-
-        navigation.navigate('VerificationCode', {
-          code: res.data.verificationCode,
-          id: res.data.id,
-        });
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-      }
+      navigation.navigate('VerificationCode', {
+        code: res.data.verificationCode,
+        id: res.data.id,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
+
+    console.log(registerForm);
   };
 
   return (
@@ -82,7 +154,7 @@ const Register = ({navigation}: any) => {
           />
         </View>
         <Space height={25} />
-        <Input
+        {/* <Input
           value={name}
           onChange={val => setName(val)}
           placeholder="Name"
@@ -115,13 +187,34 @@ const Register = ({navigation}: any) => {
           allowClear
           autoCapitalize="none"
           password
-        />
+        /> */}
+
+        {Object.keys(registerForm).map(key => (
+          <View key={key}>
+            {errors[key] ? (
+              <TextComponent text={errors[key]} color={colors.options.red} />
+            ) : null}
+            <Input
+              value={registerForm[`${key}`]}
+              onChange={value => handleChangeValue(key, value)}
+              placeholder={`Please enter your ${key}`}
+              allowClear={
+                key === 'password' || key === 'confirmPassword' ? false : true
+              }
+              autoCapitalize="none"
+              password={
+                key === 'password' || key === 'confirmPassword' ? true : false
+              }
+            />
+          </View>
+        ))}
 
         <ButtonComponent
+          disabled={!isFormValid}
           onPress={handleSignUp}
           type="primary"
           value="Sign Up"
-          backgroundColor={colors.primary.p500}
+          backgroundColor={isFormValid ? colors.primary.p500 : colors.gray.g500}
         />
         <Row>
           <View
@@ -152,7 +245,7 @@ const Register = ({navigation}: any) => {
           icon={
             <Image
               source={require('../../assets/images/google-icon.png')}
-              style={{width: 30, height: 30, marginRight: 5}}
+              style={{width: 25, height: 25, marginRight: 5}}
             />
           }
         />

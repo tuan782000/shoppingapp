@@ -43,6 +43,7 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    minHeight: 48,
   },
   tag: {
     backgroundColor: colors.gray.g500_20,

@@ -134,7 +134,7 @@ const Login = ({navigation}: any) => {
           icon={
             <Image
               source={require('../../assets/images/google-icon.png')}
-              style={{width: 30, height: 30, marginRight: 5}}
+              style={{width: 25, height: 25, marginRight: 5}}
             />
           }
         />

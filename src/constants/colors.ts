@@ -86,6 +86,7 @@ export const colors = {
     aqua: '#30BEB6',
     purple: '#5D30BE',
     blue: '#304FBE',
+    red: '#fe5f57',
   },
   //   gradient: {
   //     gradient01: ''

@@ -24,6 +24,7 @@ type Props = {
   type?: 'primary' | 'outline' | 'text' | 'link';
   textStyleProps?: StyleProp<TextStyle>;
   inline?: boolean;
+  disabled?: boolean;
 };
 
 const ButtonComponent = (props: Props) => {
@@ -39,6 +40,7 @@ const ButtonComponent = (props: Props) => {
     type,
     textStyleProps,
     inline,
+    disabled,
   } = props;
 
   const localStyles =
@@ -57,7 +59,7 @@ const ButtonComponent = (props: Props) => {
         ];
 
   return (
-    <TouchableOpacity onPress={onPress} style={localStyles}>
+    <TouchableOpacity onPress={onPress} style={localStyles} disabled={disabled}>
       {icon && (iconPosition === 'left' || !iconPosition) && icon}
       {value && (
         <TextComponent
