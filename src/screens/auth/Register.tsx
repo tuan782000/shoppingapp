@@ -30,6 +30,13 @@ const initialErrors = {
   confirmPassword: '',
 };
 
+const initialIcons = {
+  name: <User size={20} color={colors.gray.g500_80} />,
+  email: <Sms size={20} color={colors.gray.g500_80} />,
+  password: <Lock1 size={20} color={colors.gray.g500_80} />,
+  confirmPassword: <Lock1 size={20} color={colors.gray.g500_80} />,
+};
+
 const Register = ({navigation}: any) => {
   // cách 1: coder lương 7 tr
   // const [name, setName] = useState('');
@@ -43,6 +50,9 @@ const Register = ({navigation}: any) => {
   );
 
   const [errors, setErrors] = useState<any>(initialErrors);
+
+  const icons: any = initialIcons;
+
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -205,6 +215,7 @@ const Register = ({navigation}: any) => {
               password={
                 key === 'password' || key === 'confirmPassword' ? true : false
               }
+              prefix={icons[key]}
             />
           </View>
         ))}
@@ -220,18 +231,20 @@ const Register = ({navigation}: any) => {
           <View
             style={{
               height: 1,
-              width: '34%',
+              flex: 1,
               backgroundColor: colors.gray.g500_80,
-            }}></View>
+            }}
+          />
           <Space width={10} />
           <TextComponent text="Or login with" />
           <Space width={10} />
           <View
             style={{
               height: 1,
-              width: '34%',
+              flex: 1,
               backgroundColor: colors.gray.g500_80,
-            }}></View>
+            }}
+          />
         </Row>
         <Space height={20} />
 
