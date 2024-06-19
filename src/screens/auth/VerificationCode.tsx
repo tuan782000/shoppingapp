@@ -1,25 +1,27 @@
-import {View, Text, Image, TextInput, StyleSheet, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useRef, useState} from 'react';
+import {Alert, Image, StyleSheet, TextInput, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {handleAuthAPI} from '../../api/authAPI';
 import {
   ButtonComponent,
   Container,
-  Input,
   Row,
   Section,
   Space,
   TextComponent,
 } from '../../components';
-import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
+import {fonts} from '../../constants/fonts';
 import {SIZES} from '../../constants/theme';
-import {globalStyles} from '../../styles/globalStyles';
 import {Loading} from '../../modals';
-import {handleAuthAPI} from '../../api/authAPI';
-import {useDispatch, useSelector} from 'react-redux';
-import {authSelector, addAuth} from '../../redux/reducers/authReducer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {addAuth} from '../../redux/reducers/authReducer';
+import {globalStyles} from '../../styles/globalStyles';
+// ? navigation
 const VerificationCode = ({navigation, route}: any) => {
+  // Redux
+  const dispatch = useDispatch();
+
   const {code, id} = route.params;
 
   console.log(route.params);
@@ -28,9 +30,6 @@ const VerificationCode = ({navigation, route}: any) => {
 
   const [numbers, setNumbers] = useState<string[]>([]);
   const [isLoading, setisLoading] = useState(false);
-
-  // Redux
-  const dispatch = useDispatch();
 
   const inputRef1 = useRef<TextInput>(null);
   const inputRef2 = useRef<TextInput>(null);

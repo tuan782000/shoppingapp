@@ -15,7 +15,7 @@ import {Lock1, Sms, User} from 'iconsax-react-native';
 import {globalStyles} from '../../styles/globalStyles';
 import {Loading} from '../../modals';
 import {handleAuthAPI} from '../../api/authAPI';
-
+// ? confirmPassword
 const initialStateFormRegister = {
   name: '',
   email: '',

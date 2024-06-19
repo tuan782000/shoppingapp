@@ -1,5 +1,5 @@
 import {Lock1, Sms} from 'iconsax-react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Image, View} from 'react-native';
 import {
   ButtonComponent,
@@ -19,31 +19,116 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {addAuth} from '../../redux/reducers/authReducer';
 
-const Login = ({navigation}: any) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+const initialStateFormLogin = {
+  email: '',
+  password: '',
+};
 
+const initialErrors = {
+  email: '',
+  password: '',
+};
+
+const initialIcons = {
+  email: <Sms size={20} color={colors.gray.g500_80} />,
+  password: <Lock1 size={20} color={colors.gray.g500_80} />,
+};
+
+const Login = ({navigation}: any) => {
   const dispatch = useDispatch();
 
-  const handleLogin = async () => {
-    setIsLoading(true);
-    if (email && password) {
-      const data = {email, password};
-      try {
-        const res = await handleAuthAPI('/login', data, 'post');
-        // đăng nhập thành công xong - thì phải lưu lại vào trong asyncStore - redux
-        await AsyncStorage.setItem('authData', JSON.stringify(res.data));
-        dispatch(addAuth(res.data));
-        console.log(res.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-      }
-    } else {
-      Alert.alert('Missing value');
+  // cách code lương 7 tr
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+
+  // cách code lương 2k đô
+  const [loginForm, setLoginForm] = useState<any>(initialStateFormLogin);
+  const icons: any = initialIcons;
+  const [errors, setErrors] = useState<any>(initialErrors);
+
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const noErrors = Object.values(errors).every(error => error === '');
+    const allFieldsFilled = Object.values(loginForm).every(
+      value => value !== '',
+    );
+    setIsFormValid(noErrors && allFieldsFilled);
+  }, [loginForm, errors]);
+
+  const handleChangeValue = (key: string, value: string) => {
+    const data: any = {...loginForm};
+    data[`${key}`] = value;
+    setLoginForm(data);
+
+    validateInput(key, value);
+  };
+
+  const validateInput = (key: string, value: string) => {
+    const newErrors: any = {...errors};
+
+    switch (key) {
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        newErrors.email = !emailRegex.test(value)
+          ? 'Invalid email address'
+          : '';
+        break;
+      case 'password':
+        newErrors.password =
+          value.length < 6 ? 'Password must be at least 6 characters' : '';
+        break;
+      default:
+        break;
     }
+
+    setErrors(newErrors);
+  };
+
+  const handleLogin = async () => {
+    // Check for errors before submitting
+    if (Object.values(errors).some(error => error !== '')) {
+      console.log('There are errors in the form');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const data = {
+        email: loginForm.email,
+        password: loginForm.password,
+      };
+      const res: any = await handleAuthAPI('/login', data, 'post');
+      console.log(res.data);
+      // đăng nhập thành công xong - thì phải lưu lại vào trong asyncStore - redux
+      await AsyncStorage.setItem('authData', JSON.stringify(res.data));
+      dispatch(addAuth(res.data));
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+    // setIsLoading(true);
+    // if (email && password) {
+    //   const data = {email, password};
+    //   try {
+    //     const res = await handleAuthAPI('/login', data, 'post');
+    //     // đăng nhập thành công xong - thì phải lưu lại vào trong asyncStore - redux
+    //     await AsyncStorage.setItem('authData', JSON.stringify(res.data));
+    //     dispatch(addAuth(res.data));
+    //     console.log(res.data);
+    //     setIsLoading(false);
+    //   } catch (error) {
+    //     console.log(error);
+    //     setIsLoading(false);
+    //   }
+    // } else {
+    //   Alert.alert('Missing value');
+    // }
   };
 
   return (
@@ -71,7 +156,7 @@ const Login = ({navigation}: any) => {
           />
         </View>
         <Space height={25} />
-        <Input
+        {/* <Input
           value={email}
           onChange={val => setEmail(val)}
           placeholder="Email"
@@ -87,8 +172,28 @@ const Login = ({navigation}: any) => {
           allowClear
           autoCapitalize="none"
           password
-        />
-        {/* <Space height={5} /> */}
+        /> */}
+        {Object.keys(loginForm).map(key => (
+          <View key={key}>
+            {errors[key] ? (
+              <TextComponent text={errors[key]} color={colors.options.red} />
+            ) : null}
+            <Input
+              value={loginForm[`${key}`]}
+              onChange={value => handleChangeValue(key, value)}
+              placeholder={`Please enter your ${key}`}
+              allowClear={
+                key === 'password' || key === 'confirmPassword' ? false : true
+              }
+              autoCapitalize="none"
+              password={
+                key === 'password' || key === 'confirmPassword' ? true : false
+              }
+              prefix={icons[key]}
+            />
+          </View>
+        ))}
+        <Space height={5} />
         <View style={{alignItems: 'flex-end'}}>
           <ButtonComponent
             onPress={() => navigation.navigate('ForgotPassword')}
@@ -98,10 +203,11 @@ const Login = ({navigation}: any) => {
         </View>
         <Space height={25} />
         <ButtonComponent
+          disabled={!isFormValid}
           onPress={handleLogin}
           type="primary"
           value="Login"
-          backgroundColor={colors.primary.p500}
+          backgroundColor={isFormValid ? colors.primary.p500 : colors.gray.g500}
         />
         <Row>
           <View
