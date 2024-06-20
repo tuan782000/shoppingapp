@@ -1,12 +1,9 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {HomeScreen} from '../../screens';
-import Notifications from '../../screens/others/Notifications';
-import PrivacyPolicy from '../../screens/others/PrivacyPolicy';
-import TernsandConditions from '../../screens/others/TernsandConditions';
-import SearchScreen from '../../screens/searches/SearchScreen';
-import ProductScreen from '../../screens/products/ProductScreen';
-// import {SplashScreen} from '../../screens';
+import {HomeScreen, ProductScreen, SearchScreen} from '../../screens';
+import Notifications from '../../screens/notifications/Notifications';
+import TernsandConditions from '../../screens/TernsandConditions';
+import PrivacyPolicy from '../../screens/PrivacyPolicy';
 
 const MainNavigator = () => {
   const Stack = createNativeStackNavigator();

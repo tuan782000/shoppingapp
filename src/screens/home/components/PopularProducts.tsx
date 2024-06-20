@@ -1,16 +1,7 @@
-import {View, Text, FlatList, Dimensions} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {
-  Tabbar,
-  Section,
-  Card,
-  ProductItem,
-  Row,
-  Space,
-} from '../../../components';
-import {colors} from '../../../constants/colors';
-import {Heart} from 'iconsax-react-native';
 import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, View} from 'react-native';
+import {ProductItem, Space, Tabbar} from '../../../components';
 
 const PopularProducts = () => {
   const [products, setProducts] = useState<any[]>([]);

@@ -1,8 +1,6 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import {Container, Section, Space, TextComponent} from '../../components';
-import PopularProducts from '../homes/components/PopularProducts';
-import Products from './components/Products';
+import {View} from 'react-native';
+import {Container, Section} from '../../components';
 
 const ProductScreen = ({navigation}: any) => {
   return (
@@ -12,9 +10,7 @@ const ProductScreen = ({navigation}: any) => {
         {/* <View style={{marginLeft: -16}}>
           <PopularProducts />
         </View> */}
-        <View style={{marginLeft: -16}}>
-          <Products />
-        </View>
+        <View style={{marginLeft: -16}}>{/* <Products /> */}</View>
       </Section>
     </Container>
   );

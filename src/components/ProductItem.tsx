@@ -20,9 +20,6 @@ type Props = {
 
 const ProductItem = (props: Props) => {
   const {item, type} = props;
-  console.log(item);
-
-  // (1 > 2 ? (2 > 3 ? true : false)  : (1 > 2 ? true : false) )
 
   return !type || type === 'vertical' ? (
     <CardComponent

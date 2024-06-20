@@ -25,11 +25,6 @@ const HomeScreen = ({navigation}: any) => {
 
   return (
     <Container
-      // isScroll={false}
-      // back
-      // title="HomeScreen Screen"
-      // titlePosition="center"
-      // right={<Heart size={20} color="coral" variant="Bold" />}
       right={
         <Avatar
           source="https://images.unsplash.com/photo-1715553176007-31923bd14f78?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
