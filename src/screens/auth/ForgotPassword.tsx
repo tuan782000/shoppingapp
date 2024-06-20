@@ -185,7 +185,8 @@ const ForgotPassword = ({navigation}: any) => {
         <Space height={20} />
 
         <ButtonComponent
-          onPress={() => navigation.navigate('VerificationCode')}
+          // onPress={() => navigation.navigate('VerificationCode')}
+          onPress={() => navigation.navigate('EnterNewPassword')}
           type="primary"
           value="Continue"
           backgroundColor={colors.primary.p500}
