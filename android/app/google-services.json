@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "628813047631",
+    "project_id": "quang-shopping-app",
+    "storage_bucket": "quang-shopping-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628813047631:android:898d1c8656b9cdb1fc873a",
+        "android_client_info": {
+          "package_name": "com.bsdaoquang.quangshopping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628813047631-6en45rohviceu0m2ua3cada2m8e9bmar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bsdaoquang.quangshopping",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "628813047631-qr5ioh2b13k2934rf717dkd172365a6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHVcS_AEbyTeWbvxZZldGOSVYGIKfHCpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628813047631-qr5ioh2b13k2934rf717dkd172365a6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
