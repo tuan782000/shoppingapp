@@ -15,6 +15,7 @@ import {Lock1, Sms, User} from 'iconsax-react-native';
 import {globalStyles} from '../../styles/globalStyles';
 import {Loading} from '../../modals';
 import {handleAuthAPI} from '../../apis/authAPI';
+import SocialLogin from './components/SocialLogin';
 
 const Register = ({navigation}: any) => {
   const [name, setName] = useState('');
@@ -122,53 +123,7 @@ const Register = ({navigation}: any) => {
           value="Sign Up"
           backgroundColor={colors.primary.p500}
         />
-        <Row>
-          <View
-            style={{
-              height: 1,
-              width: '34%',
-              backgroundColor: colors.gray.g500_80,
-            }}></View>
-          <Space width={10} />
-          <TextComponent text="Or login with" />
-          <Space width={10} />
-          <View
-            style={{
-              height: 1,
-              width: '34%',
-              backgroundColor: colors.gray.g500_80,
-            }}></View>
-        </Row>
-        <Space height={20} />
-
-        <ButtonComponent
-          onPress={() => console.log('Login with google')}
-          type="primary"
-          value="Login with Google"
-          backgroundColor={colors.gray.g500_10}
-          color={colors.dark.d500}
-          borderRadius={10}
-          icon={
-            <Image
-              source={require('../../assets/images/google-icon.png')}
-              style={{width: 30, height: 30, marginRight: 5}}
-            />
-          }
-        />
-        <ButtonComponent
-          onPress={() => console.log('Login with facebook')}
-          type="primary"
-          value="Login with Facebook"
-          backgroundColor={colors.gray.g500_10}
-          color={colors.dark.d500}
-          borderRadius={10}
-          icon={
-            <Image
-              source={require('../../assets/images/facebook-icon.png')}
-              style={{width: 20, height: 20, marginRight: 5}}
-            />
-          }
-        />
+        <SocialLogin />
 
         <Row>
           <TextComponent text="Already have an account?" />
