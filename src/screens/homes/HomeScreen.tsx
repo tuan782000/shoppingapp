@@ -37,24 +37,7 @@ const HomeScreen = ({navigation}: any) => {
         />
       }
       left={<TextComponent text="Hi 👋🏻" />}>
-      {/* <View style={{padding: 20}}>
-        <TextComponent text="Test" />
-      </View> */}
       <Section>
-        {/* <Row justifyContent="space-between">
-          <TextComponent text="Hi 👋🏻" />
-          <Avatar
-            source="https://images.unsplash.com/photo-1715553176007-31923bd14f78?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            size={40}
-          />
-        </Row> */}
-        <ButtonComponent
-          value="Logout"
-          onPress={async () => {
-            await AsyncStorage.removeItem('authData');
-            dispatch(logout({}));
-          }}
-        />
         <TextComponent
           font={fonts.Bold}
           size={30}
@@ -64,19 +47,12 @@ const HomeScreen = ({navigation}: any) => {
         <Space height={16} />
         <Row>
           <View style={{flex: 1}}>
-            {/* <Input
-              placeholder="Search..."
-              prefix={<SearchNormal1 size={20} color={colors.gray.g500_80} />}
-              value=""
-              onChange={val => console.log(val)}
-            /> */}
             <ButtonComponent
               onPress={() => navigation.navigate('Search')}
               type="primary"
               value="Search..."
               backgroundColor={colors.dark.d500_5}
               borderRadius={10}
-              // textStyleProps={{color: colors.gray.g500_80}}
               icon={<SearchNormal1 size={20} color={colors.gray.g500_80} />}
               iconPosition="left"
               color={colors.gray.g500_80}
