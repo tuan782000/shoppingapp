@@ -3,7 +3,7 @@ import React from 'react';
 import {Container, Row, Section, Space, TextComponent} from '../../components';
 import {Icon} from 'iconsax-react-native';
 
-const Notifications = () => {
+const NotificationScreen = () => {
   return (
     <Container back title="Notifications" titlePosition="center">
       <Section>
@@ -19,4 +19,4 @@ const Notifications = () => {
   );
 };
 
-export default Notifications;
+export default NotificationScreen;

@@ -1,23 +1,32 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {HomeScreen} from '../../screens';
-import Notifications from '../../screens/others/Notifications';
-import PrivacyPolicy from '../../screens/others/PrivacyPolicy';
-import TernsandConditions from '../../screens/others/TernsandConditions';
-import SearchScreen from '../../screens/searches/SearchScreen';
-import ProductScreen from '../../screens/products/ProductScreen';
+import {
+  HomeScreen,
+  PrivacyPolicyScreen,
+  TernsandConditionsScreen,
+} from '../../screens';
+import SearchScreen from '../../screens/home/SearchScreen';
+import ProductScreen from '../../screens/home/ProductScreen';
+import NotificationScreen from '../../screens/notification/NotificationScreen';
+import TabsNavigator from './TabsNavigator';
 // import {SplashScreen} from '../../screens';
 
 const MainNavigator = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      {/* Thuộc Bottom Navigator - 4 thằng này đã được gộp vào trong TabsNavigator */}
+      {/* <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="Product" component={ProductScreen} />
-      <Stack.Screen name="TernsandConditions" component={TernsandConditions} />
-      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-      <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="Notifications" component={NotificationScreen} /> */}
+      <Stack.Screen name="Home" component={TabsNavigator} />
+      {/* Các màn hình ngoài không thuộc Bottom Navigator */}
+      <Stack.Screen
+        name="TernsandConditions"
+        component={TernsandConditionsScreen}
+      />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
     </Stack.Navigator>
   );
 };

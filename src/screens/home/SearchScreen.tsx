@@ -1,17 +1,10 @@
-import React, {useState} from 'react';
-import {
-  Container,
-  Input,
-  Section,
-  Space,
-  TextComponent,
-} from '../../components';
+import {useState} from 'react';
+import {Container, Input, Section, Space} from '../../components';
 import {SearchNormal1} from 'iconsax-react-native';
 import {colors} from '../../constants/colors';
 import Recently from './components/Recently';
-import PopularProducts from '../homes/components/PopularProducts';
-import Popular from './components/Popular';
 import {View} from 'react-native';
+import PopularProducts from './components/PopularProducts';
 
 const SearchScreen = ({navigation}: any) => {
   const [search, setSearch] = useState('');

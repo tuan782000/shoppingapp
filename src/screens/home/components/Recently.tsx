@@ -1,9 +1,8 @@
-import {View, Text, Dimensions} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
+import {Dimensions, View} from 'react-native';
 import {ButtonComponent, Space, Tabbar} from '../../../components';
 import {ArrowRotateLeft} from 'iconsax-react-native';
 import {colors} from '../../../constants/colors';
-import PopularProducts from '../../homes/components/PopularProducts';
 
 const Recently = () => {
   const [rencently, setRencently] = useState<any[]>([]);

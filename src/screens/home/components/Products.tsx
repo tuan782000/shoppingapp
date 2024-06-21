@@ -1,15 +1,6 @@
-import {View, Text, FlatList, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {
-  Tabbar,
-  Section,
-  Card,
-  ProductItem,
-  Row,
-  Space,
-} from '../../../components';
-import {colors} from '../../../constants/colors';
-import {Heart} from 'iconsax-react-native';
+import {Dimensions, View} from 'react-native';
+import {ProductItem, Space} from '../../../components';
 
 const Products = ({navigation}: any) => {
   const [products, setProducts] = useState<any[]>([]);
@@ -74,45 +65,6 @@ const Products = ({navigation}: any) => {
   return (
     <View>
       <Space height={20} />
-
-      {/* <FlatList
-        style={{marginLeft: 10}}
-        data={products}
-        numColumns={2}
-        keyExtractor={item => item.id}
-        renderItem={({item, index}) => (
-          <Card
-            source={item.image}
-            title={item.name}
-            description={item.desc}
-            price={`$ ${item.price}`}
-            productStyles={{
-              backgroundColor: colors.white.w500_20,
-              width: Dimensions.get('window').width / 2 - 15,
-              borderRadius: 10,
-              marginRight: index % 2 === 0 ? 10 : 0,
-              marginBottom: 10,
-            }}
-            icon={<Heart color={colors.dark.d500_20} />}
-          />
-        )}
-      /> */}
-
-      {/* <Card
-        source={
-          'https://plus.unsplash.com/premium_photo-1668638806052-4544af05f648?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        }
-        title={'Dennis'}
-        description={'ok'}
-        price={'2000'}
-        productStyles={{
-          backgroundColor: colors.white.w500_20,
-          maxWidth: 150,
-          borderRadius: 10,
-        }}
-        icon={<Heart color={colors.dark.d500_20} />}
-      /> */}
-
       <View
         style={{
           flexDirection: 'row',
@@ -125,10 +77,6 @@ const Products = ({navigation}: any) => {
           <ProductItem item={item} key={item.id} />
         ))}
       </View>
-
-      {/* {products.map(item => (
-        <ProductItem type="horizontal" item={item} key={item.id} />
-      ))} */}
     </View>
   );
 };

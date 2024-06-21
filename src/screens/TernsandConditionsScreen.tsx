@@ -1,9 +1,9 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import {Container, Section, Space, TextComponent} from '../../components';
-import {colors} from '../../constants/colors';
+import {Container, Section, Space, TextComponent} from '../components';
+import {colors} from '../constants/colors';
 
-const TernsandConditions = () => {
+const TernsandConditionsScreen = () => {
   return (
     <Container back title="Terms & Conditions" titlePosition="center">
       <Section>
@@ -24,4 +24,4 @@ const TernsandConditions = () => {
   );
 };
 
-export default TernsandConditions;
+export default TernsandConditionsScreen;
