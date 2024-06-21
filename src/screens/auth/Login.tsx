@@ -109,6 +109,7 @@ const Login = ({navigation}: any) => {
       console.log(res.data);
     } catch (error) {
       console.log(error);
+      Alert.alert(`${error}`);
     } finally {
       setIsLoading(false);
     }
