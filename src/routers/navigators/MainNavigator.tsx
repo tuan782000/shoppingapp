@@ -9,6 +9,7 @@ import SearchScreen from '../../screens/home/SearchScreen';
 import ProductScreen from '../../screens/home/ProductScreen';
 import NotificationScreen from '../../screens/notification/NotificationScreen';
 import TabsNavigator from './TabsNavigator';
+import DrawerNavigator from './DrawerNavigator';
 // import {SplashScreen} from '../../screens';
 
 const MainNavigator = () => {
@@ -20,7 +21,10 @@ const MainNavigator = () => {
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="Product" component={ProductScreen} />
       <Stack.Screen name="Notifications" component={NotificationScreen} /> */}
-      <Stack.Screen name="Home" component={TabsNavigator} />
+
+      {/* <Stack.Screen name="Home" component={TabsNavigator} /> */}
+      <Stack.Screen name="Main" component={DrawerNavigator} />
+
       {/* Các màn hình ngoài không thuộc Bottom Navigator */}
       <Stack.Screen
         name="TernsandConditions"

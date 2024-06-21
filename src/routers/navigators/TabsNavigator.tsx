@@ -7,6 +7,7 @@ import FavouriteNavigator from './FavouriteNavigator';
 import NotificationNavigator from './NotificationNavigator';
 import {colors} from '../../constants/colors';
 import {Heart, Home, Notification, ShoppingCart} from 'iconsax-react-native';
+import DrawerNavigator from './DrawerNavigator';
 
 const TabsNavigator = () => {
   const Tabs = createBottomTabNavigator();

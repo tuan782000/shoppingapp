@@ -19,6 +19,7 @@ import PopularProducts from './components/PopularProducts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {logout} from '../../redux/reducers/authReducer';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const HomeScreen = ({navigation}: any) => {
   const dispatch = useDispatch();
@@ -30,10 +31,12 @@ const HomeScreen = ({navigation}: any) => {
       // titlePosition="center"
       // right={<Heart size={20} color="coral" variant="Bold" />}
       right={
-        <Avatar
-          source="https://images.unsplash.com/photo-1715553176007-31923bd14f78?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          size={40}
-        />
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Avatar
+            source="https://images.unsplash.com/photo-1715553176007-31923bd14f78?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            size={40}
+          />
+        </TouchableOpacity>
       }
       left={<TextComponent text="Hi 👋🏻" />}>
       {/* <View style={{padding: 20}}>
