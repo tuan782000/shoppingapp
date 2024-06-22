@@ -1,14 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {
-  HomeScreen,
-  PrivacyPolicyScreen,
-  TernsandConditionsScreen,
-} from '../../screens';
-import SearchScreen from '../../screens/home/SearchScreen';
-import ProductScreen from '../../screens/home/ProductScreen';
-import NotificationScreen from '../../screens/notification/NotificationScreen';
-import TabsNavigator from './TabsNavigator';
+import {PrivacyPolicyScreen, TernsandConditionsScreen} from '../../screens';
 import DrawerNavigator from './DrawerNavigator';
 // import {SplashScreen} from '../../screens';
 
