@@ -76,10 +76,10 @@ const HomeAuth = ({navigation}: any) => {
               {index < slides.length - 1 && (
                 <Row
                   onPress={() => {
-                    navigation.navigate('Login');
                     // setIndex(index + 1);
                     // swiperRef.current?.goToSlide(index + 1);
                     // swiperRef.current?.goToSlide(index + (slides.length - 1));
+                    navigation.navigate('Login');
                   }}>
                   <TextComponent text="Skip" color={colors.primary.p500} />
                   <Space width={8} />
@@ -108,6 +108,8 @@ const HomeAuth = ({navigation}: any) => {
                     flex: 1,
                     padding: 30,
                     // backgroundColor: 'rgba(255,255,255,0.9)',
+                    // backgroundColor: colors.white.w500,
+                    // opacity: 0.9,
                   },
                 ]}>
                 <Text

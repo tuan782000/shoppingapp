@@ -1,6 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, Modal, View} from 'react-native';
 import {TextComponent} from '../components';
+import {colors} from '../constants/colors';
 import {globalStyles} from '../styles/globalStyles';
 
 type Props = {
@@ -12,19 +13,19 @@ const Loading = (props: Props) => {
   const {message, visible} = props;
   return (
     <Modal
-      visible={visible}
       animationType="slide"
+      visible={visible}
       style={[globalStyles.center, {flex: 1}]}
       transparent
       statusBarTranslucent>
       <View
         style={{
           flex: 1,
+          backgroundColor: 'rgba(0,0,0,0.5)',
           justifyContent: 'center',
-          alignContent: 'center',
-          backgroundColor: 'rgba(0,0,0,0.6)',
+          alignItems: 'center',
         }}>
-        <ActivityIndicator color={'white'} />
+        <ActivityIndicator color={colors.white.w500} />
         {message && <TextComponent text={message} />}
       </View>
     </Modal>

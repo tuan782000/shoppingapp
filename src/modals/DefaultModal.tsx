@@ -25,15 +25,15 @@ const DefaultModal = (props: Props) => {
       <View
         style={{
           flex: 1,
+          backgroundColor: 'rgba(0,0,0,0.5)',
           justifyContent: 'center',
-          backgroundColor: 'rgba(0,0,0,0.6)',
         }}>
         <View
           style={{
             margin: 20,
+            padding: 20,
             borderRadius: 12,
             backgroundColor: 'white',
-            padding: 20,
           }}></View>
       </View>
     </Modal>

@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Avatar,
   ButtonComponent,
@@ -16,8 +16,16 @@ import {colors} from '../../constants/colors';
 import TopCategories from './components/TopCategories';
 import TopBrands from './components/TopBrands';
 import PopularProducts from './components/PopularProducts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../redux/reducers/authReducer';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import FilterModal from '../../modals/FilterModal';
 
 const HomeScreen = ({navigation}: any) => {
+  const dispatch = useDispatch();
+  const [isVisibleModalInfo, setIsVisibleModalInfo] = useState(false);
+
   return (
     <Container
       // isScroll={false}
@@ -26,10 +34,12 @@ const HomeScreen = ({navigation}: any) => {
       // titlePosition="center"
       // right={<Heart size={20} color="coral" variant="Bold" />}
       right={
-        <Avatar
-          source="https://images.unsplash.com/photo-1715553176007-31923bd14f78?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          size={40}
-        />
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Avatar
+            source="https://images.unsplash.com/photo-1715553176007-31923bd14f78?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            size={40}
+          />
+        </TouchableOpacity>
       }
       left={<TextComponent text="Hi 👋🏻" />}>
       {/* <View style={{padding: 20}}>
@@ -43,6 +53,13 @@ const HomeScreen = ({navigation}: any) => {
             size={40}
           />
         </Row> */}
+        {/* <ButtonComponent
+          onPress={async () => {
+            await AsyncStorage.removeItem('authData');
+            dispatch(logout({}));
+          }}
+          value="logout"
+        /> */}
         <TextComponent
           font={fonts.Bold}
           size={30}
@@ -77,7 +94,7 @@ const HomeScreen = ({navigation}: any) => {
           <Space width={12} />
           <ButtonComponent
             icon={<Setting4 size={22} color={colors.white.w500} />}
-            onPress={() => {}}
+            onPress={() => setIsVisibleModalInfo(!isVisibleModalInfo)}
             backgroundColor={colors.primary.p500}
             buttonStyles={{
               borderRadius: 12,
@@ -90,7 +107,9 @@ const HomeScreen = ({navigation}: any) => {
       <Space height={16} />
       <TopBrands />
       <Space height={16} />
-      <PopularProducts />
+      <PopularProducts navigation={navigation} />
+
+      <FilterModal visible={isVisibleModalInfo} onOk={() => {}} />
     </Container>
   );
 };

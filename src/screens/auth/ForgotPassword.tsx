@@ -1,5 +1,5 @@
 import {View, Text, Image, TextInput} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
   ButtonComponent,
   Container,
@@ -17,12 +17,10 @@ import {globalStyles} from '../../styles/globalStyles';
 import {InfoModal} from '../../modals';
 
 const ForgotPassword = ({navigation}: any) => {
-  const [otp, setOtp] = useState('');
   const [sms, setSms] = useState('');
-  const [isVisibleModalInfo, setIsVisibleModalInfo] = useState(false);
+  const [email, setEmail] = useState('');
 
   const [isFocused, setIsFocused] = useState<'email' | 'sms' | undefined>();
-
   return (
     <Container back>
       <Section>
@@ -45,7 +43,7 @@ const ForgotPassword = ({navigation}: any) => {
           />
         </View>
 
-        <Input
+        {/* <Input
           onChange={val => setOtp(val)}
           value={otp}
           placeholder="Send OTP via SMS"
@@ -110,9 +108,108 @@ const ForgotPassword = ({navigation}: any) => {
           }
         /> */}
 
+        <Row
+          styles={{
+            padding: 8,
+            borderRadius: 16,
+            justifyContent: 'flex-start',
+            borderWidth: 1,
+            borderColor:
+              isFocused === 'sms' || sms
+                ? colors.primary.p500
+                : colors.gray.g500_20,
+          }}>
+          <View
+            style={{
+              backgroundColor:
+                isFocused === 'sms' || sms
+                  ? colors.primary.p500
+                  : colors.gray.g500_20,
+              padding: 10,
+              borderRadius: 999,
+            }}>
+            <Message
+              size={20}
+              color={
+                isFocused === 'sms' || sms
+                  ? colors.white.w500
+                  : colors.gray.g500_80
+              }
+            />
+          </View>
+          <Space width={12} />
+          <View style={{flex: 1, minHeight: 54}}>
+            {(isFocused === 'sms' || sms) && (
+              <TextComponent
+                text="Send OTP via SMS"
+                color={colors.gray.g500_80}
+              />
+            )}
+            <TextInput
+              onFocus={() => setIsFocused('sms')}
+              value={sms}
+              placeholder="Enter OTP from SMS"
+              onChangeText={val => setSms(val)}
+              style={{padding: 0, margin: 0, flex: 1}}
+              autoCapitalize="none"
+            />
+          </View>
+        </Row>
+        <Space height={10} />
+        <Row
+          styles={{
+            // backgroundColor: colors.gray.g500_10,
+            padding: 8,
+            borderRadius: 16,
+            justifyContent: 'flex-start',
+            borderWidth: 1,
+            borderColor:
+              isFocused === 'email' || email
+                ? colors.primary.p500
+                : colors.gray.g500_20,
+          }}>
+          <View
+            style={{
+              backgroundColor:
+                isFocused === 'email' || email
+                  ? colors.primary.p500
+                  : colors.gray.g500_20,
+              padding: 10,
+              borderRadius: 999,
+            }}>
+            <Sms
+              size={20}
+              color={
+                isFocused === 'email' || email
+                  ? colors.white.w500
+                  : colors.gray.g500_80
+              }
+            />
+          </View>
+          <Space width={12} />
+          <View style={{flex: 1, minHeight: 54}}>
+            {(isFocused === 'email' || email) && (
+              <TextComponent
+                text="Send OTP via Email"
+                color={colors.gray.g500_80}
+              />
+            )}
+            <TextInput
+              onFocus={() => setIsFocused('email')}
+              value={email}
+              placeholder="Enter OTP from Email"
+              onChangeText={val => setEmail(val)}
+              style={{padding: 0, margin: 0, flex: 1}}
+              autoCapitalize="none"
+            />
+          </View>
+        </Row>
+
+        <Space height={20} />
+
         <ButtonComponent
-          onPress={() => setIsVisibleModalInfo(true)}
           // onPress={() => navigation.navigate('VerificationCode')}
+          onPress={() => navigation.navigate('EnterNewPassword')}
           type="primary"
           value="Continue"
           backgroundColor={colors.primary.p500}

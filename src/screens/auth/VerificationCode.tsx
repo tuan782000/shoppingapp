@@ -1,26 +1,35 @@
-import {View, Text, Image, TextInput, StyleSheet, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useRef, useState} from 'react';
+import {Alert, Image, StyleSheet, TextInput, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {handleAuthAPI} from '../../api/authAPI';
 import {
   ButtonComponent,
   Container,
-  Input,
   Row,
   Section,
   Space,
   TextComponent,
 } from '../../components';
-import {fonts} from '../../constants/fonts';
 import {colors} from '../../constants/colors';
+import {fonts} from '../../constants/fonts';
 import {SIZES} from '../../constants/theme';
-import {globalStyles} from '../../styles/globalStyles';
 import {Loading} from '../../modals';
-import {handleAuthAPI} from '../../apis/authAPI';
-
+import {addAuth} from '../../redux/reducers/authReducer';
+import {globalStyles} from '../../styles/globalStyles';
+// ? navigation
 const VerificationCode = ({navigation, route}: any) => {
+  // Redux
+  const dispatch = useDispatch();
+
   const {code, id} = route.params;
 
+  console.log(route.params);
+  console.log(code);
+  console.log(id);
+
   const [numbers, setNumbers] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   const inputRef1 = useRef<TextInput>(null);
   const inputRef2 = useRef<TextInput>(null);
@@ -40,22 +49,27 @@ const VerificationCode = ({navigation, route}: any) => {
 
   const handleVerification = async () => {
     if (numbers.length < 4) {
-      Alert.alert('', 'Verification code is not correct');
+      Alert.alert('Notfication', 'Verification code is not correct');
     } else {
+      setisLoading(true);
       let nums = '';
       numbers.forEach(num => (nums += num));
-      console.log(nums);
-      if (nums !== `${code}`) {
-        Alert.alert('', 'Verification code is not correct');
+
+      if (nums != `${code}`) {
+        Alert.alert('Notification', 'Verification code is not correct');
       } else {
-        setIsLoading(true);
         try {
           const res = await handleAuthAPI('/verification', {id}, 'post');
-          setIsLoading(false);
+          setisLoading(false);
+
           console.log(res);
+          // trước khi di chuyển sang màn hình khác phải lưu token đó vào AsyncStore
+          await AsyncStorage.setItem('authData', JSON.stringify(res.data));
+          // Sau khi đã có "res". Tới đây sẽ là việc của redux
+          dispatch(addAuth(res.data));
         } catch (error) {
           console.log(error);
-          setIsLoading(false);
+          setisLoading(false);
         }
       }
     }

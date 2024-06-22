@@ -14,11 +14,10 @@ type Props = {
   visible: boolean;
 };
 
-const InfoModal = (props: Props) => {
+const FilterModal = (props: Props) => {
   const {title, description, icon, okText, onOk, visible} = props;
   return (
     <Modal
-      animationType="fade"
       visible={visible}
       style={[globalStyles.center, {flex: 1}]}
       transparent
@@ -35,40 +34,10 @@ const InfoModal = (props: Props) => {
             padding: 20,
             borderRadius: 12,
             backgroundColor: 'white',
-          }}>
-          <View style={[globalStyles.center]}>
-            <View
-              style={{
-                paddingVertical: 20,
-                paddingLeft: 25,
-              }}>
-              {icon && icon}
-            </View>
-            {title && (
-              <TextComponent
-                text={title}
-                font={fonts.Bold}
-                size={20}
-                textAlign="center"
-              />
-            )}
-            <Space height={5} />
-            {description && (
-              <TextComponent text={description} textAlign="center" />
-            )}
-          </View>
-          <Space height={20} />
-          <ButtonComponent
-            value={okText ?? ''}
-            onPress={onOk}
-            type="primary"
-            backgroundColor={colors.primary.p500}
-            inline
-          />
-        </View>
+          }}></View>
       </View>
     </Modal>
   );
 };
 
-export default InfoModal;
+export default FilterModal;
