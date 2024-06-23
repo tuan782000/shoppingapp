@@ -15,7 +15,21 @@ GoogleSignin.configure({
 });
 
 const App = () => {
-  return <></>;
+  return (
+    <>
+      <StatusBar
+        translucent
+        barStyle={'dark-content'}
+        backgroundColor={'transparent'}
+      />
+      {/* <Home /> */}
+      {/* Routers: lý do router sẽ bọc nguyên cái App - mà dưới này đã gọi thành ra xung đột */}
+      {/* Chính vì vậy mình sẽ gọi ở đây và chuyển giao cho thư mục routers xử lý */}
+      <Provider store={store}>
+        <Routers />
+      </Provider>
+    </>
+  );
 };
 
 export default App;
