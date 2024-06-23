@@ -4,13 +4,14 @@ import {HomeScreen, ProductScreen, SearchScreen} from '../../screens';
 import Notifications from '../../screens/notifications/Notifications';
 import TernsandConditions from '../../screens/TernsandConditions';
 import PrivacyPolicy from '../../screens/PrivacyPolicy';
-import TabsNavigator from './TabsNavigator';
 
 const MainNavigator = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={TabsNavigator} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="Product" component={ProductScreen} />
       <Stack.Screen name="TernsandConditions" component={TernsandConditions} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="Notifications" component={Notifications} />
