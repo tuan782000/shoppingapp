@@ -6,6 +6,12 @@ import Home from './src/screens/home/HomeScreen';
 import Routers from './src/routers/Routers';
 import {Provider} from 'react-redux';
 import store from './src/redux/store';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId:
+    '389902582248-sqtc4cjjtseqkbalncsitlbabon8svbm.apps.googleusercontent.com',
+});
 
 const App = () => {
   return (

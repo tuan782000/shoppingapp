@@ -18,6 +18,7 @@ import {handleAuthAPI} from '../../api/authAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {addAuth} from '../../redux/reducers/authReducer';
+import SocialLogin from './components/SocialLogin';
 
 const initialStateFormLogin = {
   email: '',
@@ -210,55 +211,7 @@ const Login = ({navigation}: any) => {
           value="Login"
           backgroundColor={isFormValid ? colors.primary.p500 : colors.gray.g500}
         />
-        <Row>
-          <View
-            style={{
-              height: 1,
-              flex: 1,
-              backgroundColor: colors.gray.g500_80,
-            }}
-          />
-          <Space width={10} />
-          <TextComponent text="Or login with" />
-          <Space width={10} />
-          <View
-            style={{
-              height: 1,
-              flex: 1,
-              backgroundColor: colors.gray.g500_80,
-            }}
-          />
-        </Row>
-        <Space height={20} />
-
-        <ButtonComponent
-          onPress={() => console.log('Login with google')}
-          type="primary"
-          value="Login with Google"
-          backgroundColor={colors.gray.g500_10}
-          color={colors.dark.d500}
-          borderRadius={10}
-          icon={
-            <Image
-              source={require('../../assets/images/google-icon.png')}
-              style={{width: 25, height: 25, marginRight: 5}}
-            />
-          }
-        />
-        <ButtonComponent
-          onPress={() => console.log('Login with facebook')}
-          type="primary"
-          value="Login with Facebook"
-          backgroundColor={colors.gray.g500_10}
-          color={colors.dark.d500}
-          borderRadius={10}
-          icon={
-            <Image
-              source={require('../../assets/images/facebook-icon.png')}
-              style={{width: 20, height: 20, marginRight: 5}}
-            />
-          }
-        />
+        <SocialLogin />
 
         <Row>
           <TextComponent text="First time here?" />
