@@ -6,6 +6,7 @@ import Routers from './src/routers/Routers';
 import {Provider} from 'react-redux';
 import store from './src/redux/store';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {TextComponent} from './src/components';
 
 GoogleSignin.configure({
   webClientId:
@@ -22,6 +23,7 @@ const App = () => {
         barStyle={'dark-content'}
         backgroundColor={'transparent'}
       />
+      <TextComponent text="fafafa" />
       {/* <Home /> */}
       {/* Routers: lý do router sẽ bọc nguyên cái App - mà dưới này đã gọi thành ra xung đột */}
       {/* Chính vì vậy mình sẽ gọi ở đây và chuyển giao cho thư mục routers xử lý */}
