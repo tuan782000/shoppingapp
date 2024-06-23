@@ -88,6 +88,7 @@ const DrawerCustom = ({navigation}: any) => {
           style={{
             width: 60,
             height: 60,
+            marginTop: 10,
           }}
         />
       </View>
