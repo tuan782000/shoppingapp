@@ -25,6 +25,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {logout} from '../redux/reducers/authReducer';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const DrawerCustom = ({navigation}: any) => {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const DrawerCustom = ({navigation}: any) => {
   ];
 
   const handleSignOut = async () => {
+    await GoogleSignin.signOut();
     await AsyncStorage.removeItem('authData');
     dispatch(logout({}));
   };
