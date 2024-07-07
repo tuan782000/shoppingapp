@@ -37,22 +37,36 @@ const Avatar = (props: Props) => {
   } = props;
   return (
     <TouchableOpacity
+      disabled={!onPress}
       style={[
         {
-          padding: padding ?? 0,
+          // padding: padding ?? 0,
           backgroundColor: backgroundColor ?? undefined,
           borderRadius: 999,
+          width: size ?? 24,
+          height: size ?? 24,
         },
         imgStyles,
       ]}
       onPress={onPress}>
-      <Image
-        source={{uri: source}}
-        width={size ?? 24}
-        height={size ?? 24}
-        borderRadius={size ? size / 2 : 12}
-        resizeMode={resizeMode ?? 'cover'}
-      />
+      {source ? (
+        <Image
+          source={{uri: source}}
+          width={size ?? 24}
+          height={size ?? 24}
+          borderRadius={size ? size / 2 : 12}
+          resizeMode={resizeMode ?? 'cover'}
+        />
+      ) : (
+        <View
+          style={{
+            width: size ?? 24,
+            height: size ?? 24,
+            backgroundColor,
+            borderRadius: 999,
+          }}
+        />
+      )}
     </TouchableOpacity>
   );
 };

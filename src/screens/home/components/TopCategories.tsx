@@ -2,45 +2,31 @@ import {View, Text, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Tabbar, TextComponent, Section, Tag} from '../../../components';
 import {colors} from '../../../constants/colors';
+import {HandleAPI} from '../../../api/handleAPI';
+import {useNavigation} from '@react-navigation/native';
 
 const TopCategories = () => {
   const [categories, setCategories] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigation: any = useNavigation();
 
   useEffect(() => {
     getCategories();
   }, []);
 
   const getCategories = async () => {
-    // const api = await fetch('');
+    setIsLoading(true);
+    // show lỗi error.response.data.message
+    const api = `/all-categories`;
     try {
-      setCategories([
-        {
-          id: '1',
-          title: 'Hat',
-        },
-        {
-          id: '2',
-          title: 'Men',
-        },
-        {
-          id: '3',
-          title: 'Women',
-        },
-        {
-          id: '4',
-          title: 'Kids wear',
-        },
-        {
-          id: '5',
-          title: 'Sport',
-        },
-        {
-          id: '6',
-          title: 'Underwear',
-        },
-      ]);
+      const res = await HandleAPI.Category(api);
+      // console.log(res);
+      setCategories(res.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -83,16 +69,10 @@ const TopCategories = () => {
                 paddingLeft: 16,
                 marginRight: 16,
               }}
-              item={{
-                id: 'all',
-                title: 'All',
-              }}
-              onCheck={vals => {
-                console.log(vals);
-              }}
-              checked={['all']}
-              textStyles={{color: colors.white.w500}}
-            />
+              // checked={['all']}
+              textStyles={{color: colors.white.w500}}>
+              <TextComponent text="All" color={colors.white.w500} />
+            </Tag>
           }
           renderItem={({item, index}) => (
             // <View
@@ -101,11 +81,17 @@ const TopCategories = () => {
             //   <TextComponent text={item.title} />
             // </View>
             <Tag
-              styles={{marginRight: index < categories.length - 1 ? 16 : 0}}
-              key={item.id}
-              item={item}
-              onCheck={id => console.log(id)}
-            />
+              onCheck={() =>
+                navigation.navigate('ProductScreen', {
+                  id: item._id,
+                  title: item.title,
+                  sortBy: 'categories',
+                })
+              }
+              styles={{marginRight: index <= categories.length - 1 ? 16 : 0}}
+              key={item._id}>
+              <TextComponent text={item.title} color={colors.primary.p500} />
+            </Tag>
           )}
         />
       )}

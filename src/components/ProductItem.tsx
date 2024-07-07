@@ -20,7 +20,7 @@ type Props = {
 
 const ProductItem = (props: Props) => {
   const {item, type} = props;
-  console.log(item);
+  // console.log(item);
 
   // (1 > 2 ? (2 > 3 ? true : false)  : (1 > 2 ? true : false) )
 
@@ -30,7 +30,7 @@ const ProductItem = (props: Props) => {
       type={type}
       onPress={() => console.log(item)}>
       <Image
-        source={{uri: item.image}}
+        source={{uri: item.imageURL}}
         style={{
           flex: 1,
           resizeMode: 'cover',
@@ -62,10 +62,10 @@ const ProductItem = (props: Props) => {
         />
       </Row>
       <View style={{padding: 12}}>
-        <TextComponent font={fonts.Bold} numberOfLines={2} text={item.name} />
+        <TextComponent font={fonts.Bold} numberOfLines={2} text={item.title} />
         <TextComponent
           numberOfLines={2}
-          text={item.desc}
+          text={item.description}
           color={colors.dark.d500_20}
         />
         <TextComponent numberOfLines={2} text={`$${item.price}`} />

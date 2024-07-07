@@ -107,9 +107,12 @@ const HomeScreen = ({navigation}: any) => {
       <Space height={16} />
       <TopBrands />
       <Space height={16} />
-      <PopularProducts navigation={navigation} />
+      <PopularProducts />
 
-      <FilterModal visible={isVisibleModalInfo} onOk={() => {}} />
+      <FilterModal
+        visible={isVisibleModalInfo}
+        onClose={() => setIsVisibleModalInfo(false)}
+      />
     </Container>
   );
 };

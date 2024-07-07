@@ -29,7 +29,7 @@ const SocialLogin = () => {
       // đăng nhập thành công xong - thì phải lưu lại vào trong asyncStore - redux
       await AsyncStorage.setItem('authData', JSON.stringify(res.data));
       dispatch(addAuth(res.data));
-      console.log(res);
+      // console.log(res);
     } catch (error) {
       console.log(error);
     } finally {

@@ -1,6 +1,11 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {PrivacyPolicyScreen, TernsandConditionsScreen} from '../../screens';
+import {
+  FilterScreen,
+  PrivacyPolicyScreen,
+  SearchScreen,
+  TernsandConditionsScreen,
+} from '../../screens';
 import DrawerNavigator from './DrawerNavigator';
 // import {SplashScreen} from '../../screens';
 
@@ -23,6 +28,8 @@ const MainNavigator = () => {
         component={TernsandConditionsScreen}
       />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
+      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="FilterScreen" component={FilterScreen} />
     </Stack.Navigator>
   );
 };

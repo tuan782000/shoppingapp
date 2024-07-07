@@ -29,6 +29,7 @@ const TextComponent = (props: Props) => {
           textAlign: textAlign,
           fontFamily: font ?? fonts.Regular,
           flex: flex ?? 0,
+          lineHeight: size ? size + 8 : 19,
         },
         styles,
       ]}>

@@ -121,7 +121,7 @@ const Register = ({navigation}: any) => {
       };
 
       const res: any = await handleAuthAPI('/register', data, 'post');
-      console.log(res.data);
+      // console.log(res.data);
 
       navigation.navigate('VerificationCode', {
         code: res.data.verificationCode,

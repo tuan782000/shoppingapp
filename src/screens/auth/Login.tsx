@@ -103,11 +103,11 @@ const Login = ({navigation}: any) => {
         password: loginForm.password,
       };
       const res: any = await handleAuthAPI('/login', data, 'post');
-      console.log(res.data);
+      // console.log(res.data);
       // đăng nhập thành công xong - thì phải lưu lại vào trong asyncStore - redux
       await AsyncStorage.setItem('authData', JSON.stringify(res.data));
       dispatch(addAuth(res.data));
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.log(error);
       Alert.alert(`${error}`);

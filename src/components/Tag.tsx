@@ -6,25 +6,22 @@ import {
   TouchableOpacity,
   TextStyle,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {ReactNode, useState} from 'react';
 import TextComponent from './TextComponent';
 import Row from './Row';
 import {globalStyles} from '../styles/globalStyles';
 import {colors} from '../constants/colors';
 
 type Props = {
-  item: {
-    title: string;
-    id: string;
-  };
+  children: ReactNode;
   checked?: string[];
   styles?: StyleProp<ViewStyle>;
-  onCheck?: (val: string) => void;
+  onCheck?: () => void;
   textStyles?: StyleProp<TextStyle>;
 };
 
 const Tag = (props: Props) => {
-  const {item, checked, styles, onCheck, textStyles} = props;
+  const {children, checked, styles, onCheck, textStyles} = props;
   const [itemSelected, setItemSelected] = useState<string[]>([]);
   const handleToggleSelected = (id: string) => {
     const items = [...itemSelected];
@@ -40,13 +37,9 @@ const Tag = (props: Props) => {
   };
   return (
     <Row
-      onPress={onCheck ? () => onCheck(item.id) : undefined}
+      onPress={onCheck ? () => onCheck() : undefined}
       styles={[globalStyles.tag, {}, styles]}>
-      <TextComponent
-        text={item.title}
-        color={colors.primary.p500}
-        styles={textStyles}
-      />
+      {children}
     </Row>
   );
 };

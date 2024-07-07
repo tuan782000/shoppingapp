@@ -7,6 +7,8 @@ import Login from './auth/Login';
 import CartScreen from './cart/CartScreen';
 import FavouriteScreen from './favourite/FavouriteScreen';
 import NotificationScreen from './notification/NotificationScreen';
+import SearchScreen from './SearchScreen';
+import FilterScreen from './FilterScreen';
 export {
   HomeScreen,
   CartScreen,
@@ -17,4 +19,6 @@ export {
   Login,
   PrivacyPolicyScreen,
   TernsandConditionsScreen,
+  SearchScreen,
+  FilterScreen,
 };

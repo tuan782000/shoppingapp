@@ -24,9 +24,9 @@ const VerificationCode = ({navigation, route}: any) => {
 
   const {code, id} = route.params;
 
-  console.log(route.params);
-  console.log(code);
-  console.log(id);
+  // console.log(route.params);
+  // console.log(code);
+  // console.log(id);
 
   const [numbers, setNumbers] = useState<string[]>([]);
   const [isLoading, setisLoading] = useState(false);
@@ -62,13 +62,13 @@ const VerificationCode = ({navigation, route}: any) => {
           const res = await handleAuthAPI('/verification', {id}, 'post');
           setisLoading(false);
 
-          console.log(res);
+          // console.log(res);
           // trước khi di chuyển sang màn hình khác phải lưu token đó vào AsyncStore
           await AsyncStorage.setItem('authData', JSON.stringify(res.data));
           // Sau khi đã có "res". Tới đây sẽ là việc của redux
           dispatch(addAuth(res.data));
         } catch (error) {
-          console.log(error);
+          // console.log(error);
           setisLoading(false);
         }
       }
