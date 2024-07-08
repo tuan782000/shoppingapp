@@ -6,6 +6,8 @@ import MainNavigator from './navigators/MainNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {addAuth, authSelector} from '../redux/reducers/authReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {HandleAPI} from '../api/handleAPI';
+import {addProfile} from '../redux/reducers/profileReducer';
 
 const Routers = () => {
   // Chia ra 2 luồng: 1 luồng chưa đăng nhập - 1 luồng đã đăng nhập
@@ -36,16 +38,20 @@ const Routers = () => {
 
   // lấy dữ liệu từ localStorage lên và lưu nó lại vào trong dispatch
   const getData = async () => {
-    // get data from localStorage
-    // save to dispatch
-    await getAuth(); // chờ lấy dữ liệu này xong
+    try {
+      // get data from localStorage
+      // save to dispatch
+      await getAuth(); // chờ lấy dữ liệu này xong
 
-    // kiểm tra có dữ liệu
-    if (1 > 2) {
-      await getCarts(); // tiếp tục chờ lấy dữ liệu giỏ hàng. xong hết mới set màn hình splashScreen false
+      // kiểm tra có dữ liệu
+      if (1 > 2) {
+        await getCarts(); // tiếp tục chờ lấy dữ liệu giỏ hàng. xong hết mới set màn hình splashScreen false
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsShowSplash(false); //
     }
-
-    setIsShowSplash(false); //
   };
 
   const getAuth = async () => {

@@ -335,7 +335,7 @@ const FilterModal = (props: Props) => {
                     renderThumb={() => (
                       <View
                         style={{
-                          backgroundColor: 'coral',
+                          backgroundColor: colors.primary.p500,
                           width: 10,
                           height: 10,
                           borderRadius: 999,
@@ -354,14 +354,14 @@ const FilterModal = (props: Props) => {
                     renderRailSelected={() => (
                       <View
                         style={{
-                          backgroundColor: 'coral',
+                          backgroundColor: colors.primary.p500,
                           width: '100%',
                           height: 4,
                         }}
                       />
                     )}
                     onSliderTouchEnd={(low, high) => {
-                      // console.log(low, high);
+                      console.log(low, high);
                       setFilterData({
                         ...filterData,
                         price: {

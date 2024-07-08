@@ -9,6 +9,7 @@ import FavouriteScreen from './favourite/FavouriteScreen';
 import NotificationScreen from './notification/NotificationScreen';
 import SearchScreen from './SearchScreen';
 import FilterScreen from './FilterScreen';
+import ProductDetail from './products/ProductDetail';
 export {
   HomeScreen,
   CartScreen,
@@ -21,4 +22,5 @@ export {
   TernsandConditionsScreen,
   SearchScreen,
   FilterScreen,
+  ProductDetail,
 };

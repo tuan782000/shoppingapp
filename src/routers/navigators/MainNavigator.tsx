@@ -1,16 +1,37 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   FilterScreen,
   PrivacyPolicyScreen,
+  ProductDetail,
   SearchScreen,
   TernsandConditionsScreen,
 } from '../../screens';
 import DrawerNavigator from './DrawerNavigator';
+import {useDispatch, useSelector} from 'react-redux';
+import {authSelector} from '../../redux/reducers/authReducer';
+import {HandleAPI} from '../../api/handleAPI';
+import {addProfile} from '../../redux/reducers/profileReducer';
 // import {SplashScreen} from '../../screens';
 
 const MainNavigator = () => {
   const Stack = createNativeStackNavigator();
+
+  const dispatch = useDispatch();
+  const user = useSelector(authSelector);
+
+  useEffect(() => {
+    user.id && getProfile();
+  }, [user]);
+
+  const getProfile = async () => {
+    const api = `/?id=${user.id}`;
+    const res = await HandleAPI.Profile(api);
+    if (res.data) {
+      dispatch(addProfile(res.data));
+    }
+  };
+
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       {/* Thuộc Bottom Navigator - 4 thằng này đã được gộp vào trong TabsNavigator */}
@@ -30,6 +51,7 @@ const MainNavigator = () => {
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
       <Stack.Screen name="FilterScreen" component={FilterScreen} />
+      <Stack.Screen name="ProductDetail" component={ProductDetail} />
     </Stack.Navigator>
   );
 };

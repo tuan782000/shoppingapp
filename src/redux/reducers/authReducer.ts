@@ -17,6 +17,7 @@ const initstate = {
   id: '',
   isVerify: false,
   accesstoken: '',
+  favourites: [],
 };
 
 const authSlice = createSlice({
