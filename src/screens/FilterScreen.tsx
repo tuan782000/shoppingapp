@@ -19,7 +19,7 @@ const FilterScreen = ({navigation, route}: any) => {
   // cái dữ liệu được navigation truyền qua - kèm data - route đảm nhận dữ liệu
   // route.params chứa dữ liệu filterData - destructuring lấy ra filterData
   const {filterData}: {filterData: FilterData} = route.params;
-  //   console.log(filterData);
+  console.log(filterData);
 
   // gửi dữ liệu lên server
 
@@ -44,7 +44,7 @@ const FilterScreen = ({navigation, route}: any) => {
       const res = await HandleAPI.Filter(api, filterData, 'post');
 
       //   console.log(res);
-      //   console.log(res.data);
+      console.log(res.data);
       if (res.data) {
         setDatafilterProducrs(res.data);
       }

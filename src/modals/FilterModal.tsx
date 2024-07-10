@@ -361,7 +361,7 @@ const FilterModal = (props: Props) => {
                       />
                     )}
                     onSliderTouchEnd={(low, high) => {
-                      console.log(low, high);
+                      // console.log(low, high);
                       setFilterData({
                         ...filterData,
                         price: {

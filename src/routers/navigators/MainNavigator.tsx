@@ -1,10 +1,12 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
 import {
+  CheckoutScreen,
   FilterScreen,
   PrivacyPolicyScreen,
   ProductDetail,
   SearchScreen,
+  SelectAddress,
   TernsandConditionsScreen,
 } from '../../screens';
 import DrawerNavigator from './DrawerNavigator';
@@ -52,6 +54,8 @@ const MainNavigator = () => {
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
       <Stack.Screen name="FilterScreen" component={FilterScreen} />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
+      <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+      <Stack.Screen name="SelectAddress" component={SelectAddress} />
     </Stack.Navigator>
   );
 };

@@ -8,6 +8,7 @@ import {
   Platform,
   Alert,
   FlatList,
+  StatusBar,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -22,7 +23,14 @@ import {ProductModel} from '../../models/ProductModel';
 import {HandleAPI} from '../../api/handleAPI';
 import {SIZES} from '../../constants/theme';
 import {colors} from '../../constants/colors';
-import {ArrowLeft2, Heart, ShoppingCart} from 'iconsax-react-native';
+import {
+  Add,
+  ArrowLeft2,
+  Heart,
+  Minus,
+  ShoppingBag,
+  ShoppingCart,
+} from 'iconsax-react-native';
 import {fonts} from '../../constants/fonts';
 import {Rating} from 'react-native-ratings';
 import {useDispatch, useSelector} from 'react-redux';
@@ -31,6 +39,9 @@ import {
   updateFavourites,
 } from '../../redux/reducers/profileReducer';
 import {authSelector} from '../../redux/reducers/authReducer';
+import LinearGradient from 'react-native-linear-gradient';
+import ReadMore from '../../components/ReadMore';
+import {addCart, cartSelector} from '../../redux/reducers/cartReducer';
 
 const ProductDetail = ({navigation, route}: any) => {
   // route chỉ nhận về id - mặc dù có thể truyền toàn bộ thông tin nhưng không nên như vậy
@@ -41,6 +52,9 @@ const ProductDetail = ({navigation, route}: any) => {
 
   const profile = useSelector(profileSelector);
   const user = useSelector(authSelector);
+
+  const cartData: any[] = useSelector(cartSelector);
+  //   console.log(cartData);
 
   const handleFavourites = async (id: string) => {
     if (user.id) {
@@ -80,9 +94,12 @@ const ProductDetail = ({navigation, route}: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState<ProductModel>();
 
-  const [rating, setRating] = useState(0);
+  //   const [rating, setRating] = useState(0);
   const [numberProduct, setNumberProduct] = useState(1);
   const [sizes, setSizes] = useState<string[]>([]);
+  //   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState('');
+  // const [readMore, setReadMore] = useState<number | undefined>(); // number dành cho giới hạn số dòng - undefined khi mà nó hiện toàn bộ, không giới hạn dòng
 
   // khi mà không để id - thì component này chỉ gọi hàm getProductById 1 lần duy nhất dù re-render cũng gọi 1 lần duy nhất
   // cho nên khi để id và thì khi truyền id vào component re-render call lại để lấy lại thông tin
@@ -95,6 +112,32 @@ const ProductDetail = ({navigation, route}: any) => {
   // thay đổi số lượng sản phẩm
   // chọn size...
   // đều gây ra re-render
+
+  useEffect(() => {
+    if (cartData.length > 0) {
+      const item = cartData.find(element => element._id === id);
+
+      if (item) {
+        setNumberProduct(item.numberProduct);
+        setSelectedSizes(item.sizesSelected);
+      }
+    }
+  }, [id, cartData]);
+
+  useEffect(() => {
+    // console.log(selectedSizes);
+    if (cartData.length > 0) {
+      const item = cartData.find(
+        element => element.selectedSizes === selectedSizes,
+      );
+
+      if (item) {
+        setNumberProduct(item.numberProduct);
+      } else {
+        setNumberProduct(1);
+      }
+    }
+  }, [selectedSizes]);
 
   const getProductById = async () => {
     setIsLoading(true);
@@ -129,8 +172,40 @@ const ProductDetail = ({navigation, route}: any) => {
     }
   };
 
+  //   const handleSelectedSizes = (id: string) => {
+  //     const items = [...selectedSizes];
+  //     const index = items.findIndex(element => element === id);
+
+  //     if (index !== -1) {
+  //       items.splice(index, 1);
+  //     } else {
+  //       items.push(id);
+  //     }
+
+  //     setSelectedSizes(items);
+  //   };
+
   //   console.log(product?.imageURL);
   //   console.log(sizes);
+
+  const handleAddToCart = () => {
+    // console.log(product, selectedSizes, numberProduct);
+    if (selectedSizes.length > 0) {
+      const data = {
+        _id: product?._id,
+        price: product?.price,
+        selectedSizes,
+        numberProduct,
+        title: product?.title,
+        imageUrl: product?.imageURL,
+      };
+
+      dispatch(addCart(data));
+    } else {
+      Alert.alert('', 'Please choose the size');
+    }
+  };
+
   return isLoading ? (
     <Section styles={[globalStyles.center]} flex={1}>
       <ActivityIndicator />
@@ -138,16 +213,18 @@ const ProductDetail = ({navigation, route}: any) => {
     </Section>
   ) : product ? (
     <>
-      <View
+      <StatusBar barStyle={'light-content'} />
+      <LinearGradient
         style={{
           position: 'absolute',
-          top: 40,
+          top: 0,
           right: 0,
           left: 0,
-          paddingHorizontal: 16,
-          //   backgroundColor: 'rgba(0,0,0,0.2)',
-        }}>
+          paddingTop: Platform.OS === 'ios' ? 40 : 20,
+        }}
+        colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}>
         <Row>
+          <Space width={5} />
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={[
@@ -171,8 +248,20 @@ const ProductDetail = ({navigation, route}: any) => {
             // text={product.title}
             text="Product Details"
           />
+          {/* Vì cái ProductDetail này nó nằm ngoài TabsNavigator - cụ thể nằm ở MainNavigator */}
+          {/* Di chuyển vào TabsNavigator chọn CartTab */}
+          {/* Sau đó truy cập CartScreen - giúp di chuyển đến màn hình cart */}
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('CartTab', {
+                screen: 'CartScreen',
+              })
+            }>
+            <ShoppingCart size={24} color={colors.white.w500} variant="Bold" />
+          </TouchableOpacity>
+          <Space width={15} />
         </Row>
-      </View>
+      </LinearGradient>
       <ScrollView
         style={{flex: 1, zIndex: -1, backgroundColor: colors.white.w500}}>
         <View
@@ -199,9 +288,12 @@ const ProductDetail = ({navigation, route}: any) => {
         <Section>
           <Row justifyContent="space-between">
             <View>
-              <Row justifyContent="space-between">
+              <Row
+                justifyContent="space-between"
+                onPress={() => console.log('Go to Review products')}>
                 <View>
                   <Rating
+                    readonly
                     type="custom"
                     imageSize={20}
                     ratingColor={colors.primary.p500}
@@ -209,8 +301,8 @@ const ProductDetail = ({navigation, route}: any) => {
                     tintColor={colors.white.w500}
                     jumpValue={0.5}
                     fractions={2}
-                    onFinishRating={(value: any) => setRating(value)}
-                    startingValue={0}
+                    // onFinishRating={(value: any) => setRating(value)}
+                    startingValue={4.5} // nên để product.rate ở đây
                   />
                 </View>
                 <View>
@@ -229,15 +321,39 @@ const ProductDetail = ({navigation, route}: any) => {
                   paddingHorizontal: 10,
                   borderRadius: 8,
                   borderColor: colors.primary.p500,
+                  width: 100,
                 }}>
-                <TouchableOpacity onPress={handleDecrement}>
-                  <Text style={{color: colors.primary.p500}}>-</Text>
+                <TouchableOpacity
+                  onPress={handleDecrement}
+                  disabled={numberProduct === 1}>
+                  <Minus
+                    color={
+                      numberProduct === 1
+                        ? colors.gray.g500
+                        : colors.primary.p500
+                    }
+                    size={20}
+                  />
                 </TouchableOpacity>
                 <Space width={10} />
-                <TextComponent text={numberProduct.toString()} />
+                <TextComponent
+                  text={numberProduct.toString()}
+                  textAlign="center"
+                  styles={{flex: 1}}
+                />
                 <Space width={10} />
-                <TouchableOpacity onPress={handleIncrement}>
-                  <Text style={{color: colors.primary.p500}}>+</Text>
+                <TouchableOpacity
+                  onPress={handleIncrement}
+                  disabled={numberProduct === 10}>
+                  {/* <Text style={{color: colors.primary.p500}}>+</Text> */}
+                  <Add
+                    color={
+                      numberProduct === 10
+                        ? colors.gray.g500
+                        : colors.primary.p500
+                    }
+                    size={20}
+                  />
                 </TouchableOpacity>
               </Row>
             </View>
@@ -261,7 +377,34 @@ const ProductDetail = ({navigation, route}: any) => {
           <Space height={10} />
           <TextComponent text="Descriptions" size={20} font={fonts.Bold} />
           <Space height={10} />
-          <TextComponent text={product.description} />
+          {/* Cách 1 */}
+          {/* <TextComponent
+            numberOfLines={readMore}
+            text={product.description}
+          />
+          <Row onPress={() => setReadMore(readMore ? undefined : 3)}>
+            <TextComponent
+              text={readMore ? 'Read More' : 'Read Less'}
+              size={12}
+              color={colors.primary.p200}
+            />
+            {readMore ? (
+              <ArrowDown2 color={colors.primary.p200} size={12} />
+            ) : (
+              <ArrowUp2 color={colors.primary.p200} size={12} />
+            )}
+          </Row> */}
+
+          {/* Cách 2 */}
+
+          {/* <ReadMore numberOfLines={3}>{product.description}</ReadMore> */}
+          <ReadMore numberOfLines={3}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab quis a,
+            ipsam consequuntur deleniti praesentium ut incidunt esse vitae
+            nulla, obcaecati officiis! Tempora, repudiandae mollitia accusamus
+            totam eligendi aliquid labore?
+          </ReadMore>
+
           <Space height={20} />
           <View
             style={{
@@ -273,7 +416,41 @@ const ProductDetail = ({navigation, route}: any) => {
           <Space height={10} />
           <TextComponent text="Select Sizes" size={20} font={fonts.Bold} />
           <Space height={10} />
-          <FlatList
+          <Row wrap="wrap" justifyContent="flex-start">
+            {sizes.map((item, index) => (
+              <TouchableOpacity
+                onPress={() => {
+                  //   setNumberProduct(1);
+                  setSelectedSizes(item);
+                }}
+                style={[
+                  //   globalStyles.tag,
+                  globalStyles.center,
+                  {
+                    backgroundColor:
+                      selectedSizes === item
+                        ? colors.primary.p500
+                        : colors.white.w500_20,
+                    marginRight: 16,
+                    marginBottom: 12,
+                    borderRadius: 999,
+                    width: 50,
+                    height: 50,
+                  },
+                ]}
+                key={index}>
+                <TextComponent
+                  text={item}
+                  color={
+                    selectedSizes === item
+                      ? colors.white.w500
+                      : colors.dark.d500
+                  }
+                />
+              </TouchableOpacity>
+            ))}
+          </Row>
+          {/* <FlatList
             horizontal={true}
             // style={{paddingLeft: 16}}
             showsHorizontalScrollIndicator={false}
@@ -297,43 +474,44 @@ const ProductDetail = ({navigation, route}: any) => {
                 <TextComponent text={item} color={colors.dark.d500} />
               </TouchableOpacity>
             )}
-          />
-          <Row>
-            <ButtonComponent
-              // buttonStyles={{backgroundColor: 'red', flex: 0}}
-              buttonStyles={{
-                backgroundColor: colors.light.l500_20,
-                padding: 18,
-                borderRadius: 999,
-              }}
-              type="text"
-              inline
-              icon={
-                <Heart
-                  size={20}
-                  color={
-                    profile.favourites.includes(id)
-                      ? '#dc3545'
-                      : colors.primary.p400
-                  }
-                  variant={profile.favourites.includes(id) ? 'Bold' : 'Outline'}
-                />
-              }
-              onPress={() => handleFavourites(id)}
-            />
-            <Space width={20} />
-            <ButtonComponent
-              onPress={() => console.log('add to cart')}
-              type="primary"
-              value="Add to cart"
-              backgroundColor={colors.primary.p500}
-              buttonStyles={{flex: 1, marginTop: 20}}
-              iconPosition="left"
-              icon={<ShoppingCart color={colors.white.w500} />}
-            />
-          </Row>
+          /> */}
         </Section>
       </ScrollView>
+      <Section styles={{paddingBottom: Platform.OS === 'ios' ? 10 : 0}}>
+        <Row>
+          <ButtonComponent
+            buttonStyles={{
+              backgroundColor: colors.light.l500_20,
+              padding: 18,
+              borderRadius: 999,
+            }}
+            type="text"
+            inline
+            icon={
+              <Heart
+                size={20}
+                color={
+                  profile.favourites.includes(id)
+                    ? '#dc3545'
+                    : colors.primary.p400
+                }
+                variant={profile.favourites.includes(id) ? 'Bold' : 'Outline'}
+              />
+            }
+            onPress={() => handleFavourites(id)}
+          />
+          <Space width={20} />
+          <ButtonComponent
+            onPress={() => handleAddToCart()}
+            type="primary"
+            value="Add to cart"
+            backgroundColor={colors.primary.p500}
+            buttonStyles={{flex: 1, marginTop: 20}}
+            iconPosition="left"
+            icon={<ShoppingCart color={colors.white.w500} />}
+          />
+        </Row>
+      </Section>
     </>
   ) : (
     <Section styles={[globalStyles.center]} flex={1}>

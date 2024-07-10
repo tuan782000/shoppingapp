@@ -19,6 +19,7 @@ import {InfoModal} from '../../modals';
 const ForgotPassword = ({navigation}: any) => {
   const [sms, setSms] = useState('');
   const [email, setEmail] = useState('');
+  const [isVisibleModalInfo, setIsVisibleModalInfo] = useState(false);
 
   const [isFocused, setIsFocused] = useState<'email' | 'sms' | undefined>();
   return (
