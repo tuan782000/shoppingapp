@@ -23,8 +23,7 @@ import {globalStyles} from '../../styles/globalStyles';
 import {useNavigation} from '@react-navigation/native';
 
 // nhận props navigate để lấy các thông đã được làm bên giỏ hàng
-const CheckoutScreen = () => {
-  const navigation: any = useNavigation();
+const CheckoutScreen = ({navigation, params}: any) => {
   return (
     <>
       <Row
@@ -65,7 +64,7 @@ const CheckoutScreen = () => {
           <Edit2
             color={colors.dark.d500}
             size={20}
-            onPress={() => console.log('address')}
+            onPress={() => navigation.navigate('SelectAddressScreen')}
           />
         </Row>
         <Space height={15} />
@@ -236,9 +235,14 @@ const CheckoutScreen = () => {
       </ScrollView>
       <Section>
         <ButtonComponent
-          onPress={() => navigation.navigate('SelectAddress')}
+          onPress={() => navigation.navigate('OrderReviewScreen')}
           backgroundColor={colors.primary.p500}
           value="Pay Now"
+          inline
+          buttonStyles={{
+            marginBottom: 40,
+            marginTop: 10,
+          }}
         />
       </Section>
     </>

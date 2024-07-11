@@ -1,19 +1,26 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
 import {
+  AddAddressScreen,
   CheckoutScreen,
   FilterScreen,
+  MyOrderScreen,
+  OrderDetailScreen,
+  OrderReviewScreen,
   PrivacyPolicyScreen,
   ProductDetail,
+  ReviewScreen,
   SearchScreen,
-  SelectAddress,
+  SelectAddressScreen,
   TernsandConditionsScreen,
+  WriteReviewScreen,
 } from '../../screens';
 import DrawerNavigator from './DrawerNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {authSelector} from '../../redux/reducers/authReducer';
 import {HandleAPI} from '../../api/handleAPI';
 import {addProfile} from '../../redux/reducers/profileReducer';
+import {cartSelector} from '../../redux/reducers/cartReducer';
 // import {SplashScreen} from '../../screens';
 
 const MainNavigator = () => {
@@ -21,6 +28,11 @@ const MainNavigator = () => {
 
   const dispatch = useDispatch();
   const user = useSelector(authSelector);
+  const cart = useSelector(cartSelector);
+
+  useEffect(() => {
+    user && console.log(cart);
+  }, [cart, user]);
 
   useEffect(() => {
     user.id && getProfile();
@@ -55,7 +67,16 @@ const MainNavigator = () => {
       <Stack.Screen name="FilterScreen" component={FilterScreen} />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
-      <Stack.Screen name="SelectAddress" component={SelectAddress} />
+      <Stack.Screen name="OrderReviewScreen" component={OrderReviewScreen} />
+      <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
+      <Stack.Screen name="OrderDetailScreen" component={OrderDetailScreen} />
+      <Stack.Screen name="WriteReviewScreen" component={WriteReviewScreen} />
+      <Stack.Screen name="ReviewScreen" component={ReviewScreen} />
+      <Stack.Screen name="AddAddressScreen" component={AddAddressScreen} />
+      <Stack.Screen
+        name="SelectAddressScreen"
+        component={SelectAddressScreen}
+      />
     </Stack.Navigator>
   );
 };

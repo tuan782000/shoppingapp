@@ -31,6 +31,7 @@ const FavouriteScreen = () => {
       // console.log(res.data);
       if (user.id) {
         const favourites: string[] = [...(profile.favourites ?? [])];
+        console.log(favourites);
 
         // Tạo một mảng các sản phẩm yêu thích dựa trên _id
         // so sánh 2 mảng với nhau - tìm ra điểm chung giữa 2 mảng

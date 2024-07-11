@@ -40,7 +40,6 @@ const InfoModal = (props: Props) => {
             <View
               style={{
                 paddingVertical: 20,
-                paddingLeft: 25,
               }}>
               {icon && icon}
             </View>

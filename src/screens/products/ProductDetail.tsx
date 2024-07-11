@@ -128,7 +128,8 @@ const ProductDetail = ({navigation, route}: any) => {
     // console.log(selectedSizes);
     if (cartData.length > 0) {
       const item = cartData.find(
-        element => element.selectedSizes === selectedSizes,
+        element =>
+          element.selectedSizes === selectedSizes && element._id === id,
       );
 
       if (item) {
@@ -290,7 +291,9 @@ const ProductDetail = ({navigation, route}: any) => {
             <View>
               <Row
                 justifyContent="space-between"
-                onPress={() => console.log('Go to Review products')}>
+                onPress={() => {
+                  navigation.navigate('ReviewScreen');
+                }}>
                 <View>
                   <Rating
                     readonly

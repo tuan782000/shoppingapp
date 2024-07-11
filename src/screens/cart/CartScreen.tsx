@@ -162,71 +162,77 @@ const CartScreen = () => {
               </TouchableOpacity>
             </View>
           )}
+          ListFooterComponent={
+            <Section>
+              <Row>
+                <Input
+                  value=""
+                  onChange={() => console.log('Coupon')}
+                  styles={{
+                    flex: 1,
+                    backgroundColor: colors.gray.g500_10,
+                    borderRadius: 999,
+                    zIndex: -1,
+                    position: 'relative',
+                  }}
+                  placeholder="Enter Promocode"
+                  prefix={
+                    <PercentageCircle color={colors.dark.d500} size={20} />
+                  }
+                />
+                <ButtonComponent
+                  onPress={() => console.log('Add')}
+                  backgroundColor={colors.primary.p500}
+                  type="primary"
+                  value="Apply"
+                  buttonStyles={{
+                    paddingVertical: 10,
+                    paddingHorizontal: 30,
+                    position: 'absolute',
+                    right: 0,
+                    top: 0,
+                  }}
+                />
+              </Row>
+              <Space height={20} />
+              <Row justifyContent="space-between">
+                <TextComponent text="Item total" />
+                <TextComponent text="$10.000" />
+              </Row>
+              <Space height={10} />
+
+              <Row justifyContent="space-between">
+                <TextComponent text="Discount" />
+                <TextComponent text="$50" />
+              </Row>
+              <Space height={10} />
+
+              <Row justifyContent="space-between">
+                <TextComponent text="Delivery Free" />
+                <TextComponent text="Free" />
+              </Row>
+              <Space height={10} />
+              <Row>
+                <View
+                  style={{
+                    height: 1,
+                    flex: 1,
+                    backgroundColor: colors.gray.g500_20,
+                  }}
+                />
+              </Row>
+              <Space height={20} />
+              <Row justifyContent="space-between">
+                <TextComponent text="Grand total" />
+                <TextComponent text="$999.50" />
+              </Row>
+              <Space height={40} />
+            </Section>
+          }
         />
 
         {/* Đoạn mới Design */}
         <Section>
-          <Row>
-            <Input
-              value=""
-              onChange={() => console.log('Coupon')}
-              styles={{
-                flex: 1,
-                backgroundColor: colors.gray.g500_10,
-                borderRadius: 999,
-                zIndex: -1,
-                position: 'relative',
-              }}
-              placeholder="Enter Promocode"
-              prefix={<PercentageCircle color={colors.dark.d500} size={20} />}
-            />
-            <ButtonComponent
-              onPress={() => console.log('Add')}
-              backgroundColor={colors.primary.p500}
-              type="primary"
-              value="Apply"
-              buttonStyles={{
-                paddingVertical: 10,
-                paddingHorizontal: 30,
-                position: 'absolute',
-                right: 0,
-                top: 0,
-              }}
-            />
-          </Row>
-          <Space height={20} />
-          <Row justifyContent="space-between">
-            <TextComponent text="Item total" />
-            <TextComponent text="$10.000" />
-          </Row>
-          <Space height={10} />
-
-          <Row justifyContent="space-between">
-            <TextComponent text="Discount" />
-            <TextComponent text="$50" />
-          </Row>
-          <Space height={10} />
-
-          <Row justifyContent="space-between">
-            <TextComponent text="Delivery Free" />
-            <TextComponent text="Free" />
-          </Row>
-          <Space height={10} />
-          <Row>
-            <View
-              style={{
-                height: 1,
-                flex: 1,
-                backgroundColor: colors.gray.g500_20,
-              }}
-            />
-          </Row>
-          <Space height={20} />
-          <Row justifyContent="space-between">
-            <TextComponent text="Grand total" />
-            <TextComponent text="$999.50" />
-          </Row>
-          <Space height={40} />
           <ButtonComponent
             onPress={() => navigation.navigate('CheckoutScreen')} // truyền props ở đây
             backgroundColor={colors.primary.p500}
