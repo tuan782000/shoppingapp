@@ -11,6 +11,7 @@ import Space from './Space';
 import Tag from './Tag';
 import CardComponent from './CardComponent';
 import ProductItem from './ProductItem';
+import DropdownPicker from './DropdownPicker';
 
 export {
   Input,
@@ -26,4 +27,5 @@ export {
   Tag,
   CardComponent,
   ProductItem,
+  DropdownPicker,
 };

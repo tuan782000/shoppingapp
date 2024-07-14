@@ -400,13 +400,13 @@ const ProductDetail = ({navigation, route}: any) => {
 
           {/* Cách 2 */}
 
-          {/* <ReadMore numberOfLines={3}>{product.description}</ReadMore> */}
-          <ReadMore numberOfLines={3}>
+          <ReadMore numberOfLines={3}>{product.description}</ReadMore>
+          {/* <ReadMore numberOfLines={3}>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab quis a,
             ipsam consequuntur deleniti praesentium ut incidunt esse vitae
             nulla, obcaecati officiis! Tempora, repudiandae mollitia accusamus
             totam eligendi aliquid labore?
-          </ReadMore>
+          </ReadMore> */}
 
           <Space height={20} />
           <View

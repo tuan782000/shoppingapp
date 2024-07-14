@@ -6,6 +6,11 @@ const cartSlice = createSlice({
     data: [],
   },
   reducers: {
+    // còn hàm sau sẽ là lấy giỏ hàng async Store ra và thêm vào lại giỏ hàng
+    syncData: (state, action) => {
+      state.data = action.payload;
+    },
+    // add Cart chỉ nhận dispatch và thêm vào 1 sản phẩm duy nhất
     addCart: (state, action) => {
       const items: any = state.data;
       const item = action.payload;
@@ -53,6 +58,7 @@ const cartSlice = createSlice({
 
 export const cartReducer = cartSlice.reducer;
 
-export const {addCart, removeCart, updateQuantity} = cartSlice.actions;
+export const {addCart, removeCart, updateQuantity, syncData} =
+  cartSlice.actions;
 
 export const cartSelector = (state: any) => state.cartReducer.data;

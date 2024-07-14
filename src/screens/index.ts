@@ -18,6 +18,8 @@ import OrderDetailScreen from './cart/OrderDetailScreen';
 import WriteReviewScreen from './reviews/WriteReviewScreen';
 import ReviewScreen from './reviews/ReviewScreen';
 import AddAddressScreen from './cart/AddAddressScreen';
+import ProfileScreen from './profiles/ProfileScreen';
+import MapScreen from './MapScreen';
 
 export {
   HomeScreen,
@@ -40,4 +42,6 @@ export {
   WriteReviewScreen,
   ReviewScreen,
   AddAddressScreen,
+  ProfileScreen,
+  MapScreen,
 };

@@ -20,7 +20,7 @@ import {globalStyles} from '../../styles/globalStyles';
 import {ArrowLeft2} from 'iconsax-react-native';
 import {fonts} from '../../constants/fonts';
 
-const MyOrderScreen = ({navigation, params}: any) => {
+const MyOrderScreen = ({navigation, route}: any) => {
   return (
     <>
       <Row

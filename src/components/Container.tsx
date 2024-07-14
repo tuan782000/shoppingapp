@@ -31,13 +31,14 @@ const Container = (props: Props) => {
       {title || back || right || left ? (
         <Row
           styles={{
+            marginTop: Platform.OS === 'android' ? 30 : 0,
             paddingHorizontal: 16,
-            paddingTop:
-              Platform.OS === 'android'
-                ? StatusBar.currentHeight
-                  ? StatusBar.currentHeight + 16
-                  : 20
-                : 20,
+            // paddingTop:
+            //   Platform.OS === 'android'
+            //     ? StatusBar.currentHeight
+            //       ? StatusBar.currentHeight + 16
+            //       : 20
+            //     : 20,
           }}>
           {left && left}
           {back ? (

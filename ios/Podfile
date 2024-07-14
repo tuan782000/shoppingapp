@@ -26,6 +26,10 @@ target 'TuanShopping' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  #Fix thêm lỗi map https://github.com/react-native-maps/react-native-maps/issues/3656
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
+
   target 'TuanShoppingTests' do
     inherit! :complete
     # Pods for testing

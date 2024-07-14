@@ -21,7 +21,7 @@ import {ArrowLeft2, ImportCurve} from 'iconsax-react-native';
 import {fonts} from '../../constants/fonts';
 import {Rating} from 'react-native-ratings';
 
-const OrderDetailScreen = ({navigation, params}: any) => {
+const OrderDetailScreen = ({navigation, route}: any) => {
   return (
     <>
       <Row

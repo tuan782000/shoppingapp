@@ -26,7 +26,7 @@ const authSlice = createSlice({
     data: initstate,
   },
   reducers: {
-    // state: chính là initstate của mình
+    // state: chính là initstate của mình - lần thứ 2 trở đi chính action cập nhật lại cho initstate
     // action là cái mình đang gửi đi - action.payload cái mà ta sẽ cập nhật
     addAuth: (state, action) => {
       state.data = action.payload;

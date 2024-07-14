@@ -14,7 +14,7 @@ import {ArrowLeft2} from 'iconsax-react-native';
 import {fonts} from '../../constants/fonts';
 import {Rating} from 'react-native-ratings';
 
-const ReviewScreen = ({navigation, params}: any) => {
+const ReviewScreen = ({navigation, route}: any) => {
   return (
     <>
       <Row

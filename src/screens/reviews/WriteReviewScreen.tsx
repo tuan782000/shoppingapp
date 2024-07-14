@@ -23,7 +23,7 @@ import {ArrowLeft2, Export, ImportCurve} from 'iconsax-react-native';
 import {fonts} from '../../constants/fonts';
 import {Rating} from 'react-native-ratings';
 
-const WriteReviewScreen = ({navigation, params}: any) => {
+const WriteReviewScreen = ({navigation, route}: any) => {
   return (
     <>
       <Row

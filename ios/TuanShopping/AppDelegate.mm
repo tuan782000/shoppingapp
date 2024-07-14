@@ -1,5 +1,7 @@
 #import "AppDelegate.h"
 #import <Firebase.h>
+#import <GoogleMaps/GoogleMaps.h>
+
 
 
 #import <React/RCTBundleURLProvider.h>
@@ -13,7 +15,7 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   [FIRApp configure];
-
+  [GMSServices provideAPIKey:@"AIzaSyDT4HmEPAoBnzQJzmS_HYlCVAWu5PpxRjw"];
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

@@ -21,7 +21,7 @@ import {ArrowLeft2, Edit2, Mobile, ShoppingCart} from 'iconsax-react-native';
 import {fonts} from '../../constants/fonts';
 import {InfoModal} from '../../modals';
 
-const OrderReviewScreen = ({navigation, params}: any) => {
+const OrderReviewScreen = ({navigation, route}: any) => {
   const [isVisibleModalInfo, setIsVisibleModalInfo] = useState(false);
 
   return (

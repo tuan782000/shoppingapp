@@ -18,30 +18,51 @@ const FavouriteScreen = () => {
   const user = useSelector(authSelector);
 
   useEffect(() => {
-    handleFavouriteProducts();
+    handleFavouriteProducts(profile.favourites ?? []);
   }, [profile.favourites]);
 
-  const handleFavouriteProducts = async () => {
+  // const handleFavouriteProducts = async () => {
+  //   setisLoading(true);
+  //   const api = `/all-products`;
+
+  //   try {
+  //     const res = await HandleAPI.Product(api);
+  //     const listProducts = res.data;
+  //     // console.log(res.data);
+  //     if (user.id) {
+  //       const favourites: string[] = [...(profile.favourites ?? [])];
+  //       console.log(favourites);
+
+  //       // Tạo một mảng các sản phẩm yêu thích dựa trên _id
+  //       // so sánh 2 mảng với nhau - tìm ra điểm chung giữa 2 mảng
+  //       const favouriteProducts = listProducts.filter(
+  //         (product: {_id: string}) => favourites.includes(product._id),
+  //       );
+
+  //       // Thực hiện các thao tác với favouriteProducts nếu cần
+  //       // console.log('Favourite Products:', favouriteProducts);
+  //       setProducts(favouriteProducts);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setisLoading(false);
+  //   }
+  // };
+
+  const handleFavouriteProducts = async (listProdcutFavourites: []) => {
     setisLoading(true);
-    const api = `/all-products`;
+    const api = `/get-product-favourites`;
 
     try {
-      const res = await HandleAPI.Product(api);
-      const listProducts = res.data;
-      // console.log(res.data);
+      const listProducts = await HandleAPI.Product(
+        api,
+        listProdcutFavourites,
+        'post',
+      );
+
       if (user.id) {
-        const favourites: string[] = [...(profile.favourites ?? [])];
-        console.log(favourites);
-
-        // Tạo một mảng các sản phẩm yêu thích dựa trên _id
-        // so sánh 2 mảng với nhau - tìm ra điểm chung giữa 2 mảng
-        const favouriteProducts = listProducts.filter(
-          (product: {_id: string}) => favourites.includes(product._id),
-        );
-
-        // Thực hiện các thao tác với favouriteProducts nếu cần
-        // console.log('Favourite Products:', favouriteProducts);
-        setProducts(favouriteProducts);
+        setProducts(listProducts.data);
       }
     } catch (error) {
       console.log(error);

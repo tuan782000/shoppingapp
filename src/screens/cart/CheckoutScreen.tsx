@@ -23,7 +23,7 @@ import {globalStyles} from '../../styles/globalStyles';
 import {useNavigation} from '@react-navigation/native';
 
 // nhận props navigate để lấy các thông đã được làm bên giỏ hàng
-const CheckoutScreen = ({navigation, params}: any) => {
+const CheckoutScreen = ({navigation, route}: any) => {
   return (
     <>
       <Row

@@ -1,5 +1,5 @@
 import {View, Text, Image} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   cartSelector,
@@ -25,10 +25,59 @@ import {useNavigation} from '@react-navigation/native';
 
 const CartScreen = () => {
   const navigation: any = useNavigation();
+  const [itemTotal, setItemTotal] = useState<number>();
+  const [promoCode, setPromoCode] = useState<number>();
+  const [grandTotal, setGrandTotal] = useState<number>();
 
   const cartData = useSelector(cartSelector);
   // console.log(cartData);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    calculateTotalItems(cartData);
+  }, [cartData, promoCode]);
+
+  const handleMinusNumberInCart = (item: any) => {
+    // Nếu item.numberProduct về là 1 - nếu lần tiếp theo gọi hàm của nút minus thì lúc này rơi vào cái trưởng hợp item.numberProduct = 1 - thực hiện dispatch removeCart
+    if (item.numberProduct === 1) {
+      dispatch(
+        removeCart({
+          id: item._id,
+          selectedSizes: item.selectedSizes,
+        }),
+      );
+    }
+
+    dispatch(
+      updateQuantity({
+        id: item._id,
+        selectedSizes: item.selectedSizes,
+        number: -1,
+      }),
+    );
+  };
+
+  const calculateTotalItems = (cartItems: any) => {
+    let totals: number[] = [];
+    cartItems.forEach((item: any) =>
+      totals.push(item.numberProduct * item.price),
+    );
+
+    // console.log(totals);
+    // console.log(cartItems);
+    const itemTotalCalculate = totals.reduce(
+      (accumulatorPrice, currentPrice) => {
+        return accumulatorPrice + currentPrice;
+      },
+      0,
+    );
+
+    // console.log(itemTotalCalculate);
+    setItemTotal(itemTotalCalculate);
+  };
+
+  // console.log(cartData);
+
   return (
     <Container isScroll={false} title="My Cart" titlePosition="center" back>
       <>
@@ -82,21 +131,24 @@ const CartScreen = () => {
                         width: 100,
                       }}>
                       <TouchableOpacity
-                        onPress={() =>
-                          dispatch(
-                            updateQuantity({
-                              id: item._id,
-                              selectedSizes: item.selectedSizes,
-                              number: -1,
-                            }),
-                          )
+                        onPress={
+                          () => handleMinusNumberInCart(item)
+                          // dispatch(
+                          //   updateQuantity({
+                          //     id: item._id,
+                          //     selectedSizes: item.selectedSizes,
+                          //     number: -1,
+                          //   }),
+                          // )
                         }
-                        disabled={item.numberProduct === 1}>
+                        // disabled={item.numberProduct === 1}
+                      >
                         <Minus
                           color={
-                            item.numberProduct === 1
-                              ? colors.gray.g500
-                              : colors.primary.p500
+                            // item.numberProduct === 1
+                            //   ? colors.gray.g500
+                            //   : colors.primary.p500
+                            colors.primary.p500
                           }
                           size={20}
                         />
@@ -197,13 +249,13 @@ const CartScreen = () => {
               <Space height={20} />
               <Row justifyContent="space-between">
                 <TextComponent text="Item total" />
-                <TextComponent text="$10.000" />
+                <TextComponent text={`$${itemTotal}`} />
               </Row>
               <Space height={10} />
 
               <Row justifyContent="space-between">
                 <TextComponent text="Discount" />
-                <TextComponent text="$50" />
+                <TextComponent text="$0" />
               </Row>
               <Space height={10} />
 
@@ -224,7 +276,8 @@ const CartScreen = () => {
               <Space height={20} />
               <Row justifyContent="space-between">
                 <TextComponent text="Grand total" />
-                <TextComponent text="$999.50" />
+                {/* Để tạm sau này sẽ setState sau */}
+                <TextComponent text={`$${itemTotal}`} />
               </Row>
               <Space height={40} />
             </Section>

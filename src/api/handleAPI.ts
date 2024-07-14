@@ -37,4 +37,9 @@ export class HandleAPI {
     data?: any,
     method?: 'post' | 'put' | 'get' | 'delete',
   ) => handleAPI(`/profiles${url}`, data, method ?? 'get');
+  static Address = (
+    url: string,
+    data?: any,
+    method?: 'post' | 'put' | 'get' | 'delete',
+  ) => handleAPI(`/addresses${url}`, data, method ?? 'get');
 }

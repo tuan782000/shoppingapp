@@ -76,7 +76,8 @@ const ProductItem = (props: Props) => {
     };
 
     try {
-      const res = await HandleAPI.Profile(api, data, 'put');
+      // const res = await HandleAPI.Profile(api, data, 'put');
+      await HandleAPI.Profile(api, data, 'put');
       // console.log(res);
     } catch (error) {
       console.log(error);
