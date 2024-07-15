@@ -42,4 +42,9 @@ export class HandleAPI {
     data?: any,
     method?: 'post' | 'put' | 'get' | 'delete',
   ) => handleAPI(`/addresses${url}`, data, method ?? 'get');
+  static Search = (
+    url: string,
+    data?: any,
+    method?: 'post' | 'put' | 'get' | 'delete',
+  ) => handleAPI(`/searches${url}`, data, method ?? 'get');
 }

@@ -27,6 +27,7 @@ type Props = {
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
   keyboardType?: KeyboardTypeOptions;
   max?: number;
+  onBlur?: () => void;
 };
 
 const Input = (props: Props) => {
@@ -44,6 +45,7 @@ const Input = (props: Props) => {
     autoCapitalize,
     keyboardType,
     max,
+    onBlur,
   } = props;
   const [isShowPassword, setIsShowPassword] = useState(password ? true : false);
   return (
@@ -77,6 +79,7 @@ const Input = (props: Props) => {
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
           maxLength={max}
+          onBlur={onBlur}
         />
       </View>
       {subfix && subfix}

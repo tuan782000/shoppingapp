@@ -76,7 +76,7 @@ const HomeScreen = ({navigation}: any) => {
               onChange={val => console.log(val)}
             /> */}
             <ButtonComponent
-              onPress={() => navigation.navigate('Search')}
+              onPress={() => navigation.navigate('SearchScreen')}
               type="primary"
               value="Search..."
               backgroundColor={colors.dark.d500_5}
